@@ -1,10 +1,5 @@
-
 const ApartmentDetail = () => {
- return (
-  <div>
-   
-  </div>
- );
+  return <div>Apartment detail</div>;
 };
 
 export default ApartmentDetail;
