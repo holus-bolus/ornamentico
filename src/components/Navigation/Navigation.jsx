@@ -24,17 +24,29 @@ const Navigation = () => {
         <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to={'aparthotel-villa-manja'}>
+              <Link
+                className="nav-link"
+                to={'https://www.villa-manja.com/'}
+                target={'_blank'}
+              >
                 Aparthotel Villa Manja
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to={'/online-store'}>
+              <Link
+                className="nav-link"
+                to={'https://ornamentico.shop/'}
+                target={'_blank'}
+              >
                 Online Store
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to={'/interior-design'}>
+              <Link
+                className="nav-link"
+                to={'https://cosyhome.studio/'}
+                target={'_blank'}
+              >
                 Interior Design
               </Link>
             </li>

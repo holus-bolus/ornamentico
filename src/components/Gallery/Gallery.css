@@ -1,0 +1,10 @@
+.gallery-container {
+  display: flex;
+  justify-content: center;
+}
+
+
+.image-gallery {
+  max-width: 740px;
+  width: 100%;
+}

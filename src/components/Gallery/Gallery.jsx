@@ -1,5 +1,6 @@
 import React from 'react';
 import Gallery from 'react-image-gallery';
+import './Gallery.css';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import image1 from '../../assets/gallery-images/1st.webp';
 import image2 from '../../assets/gallery-images/2nd.webp';
