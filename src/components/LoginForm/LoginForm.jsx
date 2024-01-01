@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './LoginForm.css';
 
-const LoginForm = ({ onLogin, onSignUp }) => {
+const LoginForm = ({ onLogin, onSignUp, loginError }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -19,6 +19,7 @@ const LoginForm = ({ onLogin, onSignUp }) => {
     <div className="login-modal-overlay">
       <div className="login-modal">
         <form onSubmit={handleSubmit} className="login-form">
+          {loginError && <div className="login-error">{loginError}</div>}
           <div className="form-control">
             <label>Username:</label>
             <input

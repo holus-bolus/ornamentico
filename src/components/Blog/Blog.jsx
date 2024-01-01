@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
-
+import './Blog.css';
 import Modal from '../Modal/Modal.jsx';
 import LoginForm from '../LoginForm/LoginForm.jsx';
 import { AuthContext } from '../../AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import CreatePost from '../CreatePost/CreatePost.jsx';
 
 const Blog = () => {
   const { isLoggedIn, onLoginStatusChange } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
-  const onNavigateToCreatePost = () => {
-    navigate('/path-to-create-post');
+  const [showCreatePost, setShowCreatePost] = useState(false);
+  const [fetchTrigger, setFetchTrigger] = useState(0);
+
+  const handleCreatePostClose = () => {
+    setShowCreatePost(false);
+    setFetchTrigger(fetchTrigger + 1);
   };
 
   useEffect(() => {
@@ -24,7 +28,22 @@ const Blog = () => {
       })
       .then((data) => setPosts(data))
       .catch((error) => console.error('Error fetching posts:', error));
-  }, []);
+  }, [fetchTrigger]);
+
+  const navigate = useNavigate();
+  const onNavigateToCreatePost = () => {
+    setShowCreatePost(true);
+  };
+
+  const handleSavePost = (postData) => {
+    setShowCreatePost(false);
+  };
+
+  if (showCreatePost) {
+    return (
+      <CreatePost onSave={handleSavePost} onClose={handleCreatePostClose} />
+    );
+  }
 
   const handleSignUp = (username, password) => {
     fetch('/api/signup', {
@@ -68,12 +87,17 @@ const Blog = () => {
         }
       })
       .then((data) => {
+        localStorage.setItem('token', data.accessToken);
         onLoginStatusChange(true);
         setIsModalOpen(false);
       })
       .catch((error) => {
         console.error('Error logging in:', error);
       });
+  };
+
+  const handleLogout = () => {
+    onLoginStatusChange(false);
   };
 
   const handleCloseModal = () => {
@@ -84,20 +108,31 @@ const Blog = () => {
   console.log('onLoginStatusChange:', onLoginStatusChange);
 
   return (
-    <div>
-      <button onClick={() => setIsModalOpen(true)}>Login/Sign up</button>
+    <div className="blog-container container">
+      {!isLoggedIn && (
+        <button className="blog-button" onClick={() => setIsModalOpen(true)}>
+          Login/Sign up
+        </button>
+      )}
       {isLoggedIn && (
-        <button onClick={onNavigateToCreatePost}>Create a post</button>
+        <>
+          <button className="blog-button" onClick={onNavigateToCreatePost}>
+            Create a post
+          </button>
+          <button className="blog-button" onClick={handleLogout}>
+            Logout
+          </button>
+        </>
       )}
       {posts.length > 0 ? (
         posts.map((post) => (
-          <div key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.content}</p>
+          <div key={post.id} className="post-card">
+            <h2 className="post-title">{post.title}</h2>
+            <p className="post-content">{post.content}</p>
           </div>
         ))
       ) : (
-        <div>No posts yet</div>
+        <div className="no-posts">No posts yet</div>
       )}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <LoginForm onLogin={handleLogin} onSignUp={handleSignUp} />

@@ -1,0 +1,45 @@
+/* General Blog Container */
+.blog-container {
+  padding: 20px;
+}
+
+/* Button Styles */
+.blog-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.blog-button:hover {
+  background-color: #0056b3;
+}
+
+/* Post Card Styles */
+.post-card {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.post-content {
+  color: #666;
+}
+
+/* No Posts Message */
+.no-posts {
+  text-align: center;
+  color: #888;
+  margin-top: 20px;
+}
