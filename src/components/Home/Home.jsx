@@ -48,7 +48,7 @@ const Home = () => {
                 className={'custom-link'}
               >
                 <img
-                  src="../../../public/facebook-svgrepo-com.svg"
+                  src="/facebook-svgrepo-com.svg"
                   alt="A Facebook icon"
                   className={'footer-icon'}
                 />
@@ -61,7 +61,7 @@ const Home = () => {
                 className={'custom-link'}
               >
                 <img
-                  src="../../../public/instagram-1-svgrepo-com.svg"
+                  src="/public/instagram-1-svgrepo-com.svg"
                   alt="An Instagram icon"
                   className={'footer-icon'}
                 />
@@ -74,7 +74,7 @@ const Home = () => {
                 className={'custom-link'}
               >
                 <img
-                  src="../../../public/youtube-color-svgrepo-com.svg"
+                  src="/youtube-color-svgrepo-com.svg"
                   alt="A YouTube icon"
                   className={'footer-icon'}
                 />
@@ -87,7 +87,7 @@ const Home = () => {
                 className={'custom-link'}
               >
                 <img
-                  src="../../../public/pinterest-1-svgrepo-com.svg"
+                  src="/pinterest-1-svgrepo-com.svg"
                   alt="A Pinterest icon"
                   className={'footer-icon'}
                 />
@@ -100,7 +100,7 @@ const Home = () => {
                 className={'custom-link'}
               >
                 <img
-                  src="../../../public/linkedin-svgrepo-com.svg"
+                  src="/linkedin-svgrepo-com.svg"
                   alt="A LinkedIn icon"
                   className={'footer-icon'}
                 />
