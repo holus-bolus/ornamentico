@@ -12,11 +12,11 @@ const images = [
   },
   {
     original: image2,
-    description: 'Image 2 Description',
+    description: 'Apartments hotel Villa Manja',
   },
   {
     original: image3,
-    description: 'Image 2 Description',
+    description: 'Apartments hotel Villa Manja',
   },
 ];
 
