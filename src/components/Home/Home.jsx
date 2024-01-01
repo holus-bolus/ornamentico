@@ -4,30 +4,39 @@ import './Home.css';
 
 const Home = () => {
   return (
-    <div className="container">
-      <h2>Handmade jewelry workshop Ornamentico</h2>
-      <h3>Aparthotel Villa Manja</h3>
-      <p>Helping to realize your own design ideas</p>
+    <div className="container home-container">
+      <h2 className={'hero-heading'}>Handmade jewelry workshop Ornamentico</h2>
+      <h3 className={'hero-subheading'}>Aparthotel Villa Manja</h3>
+      <p className={'hero-text'}>Helping to realize your own design ideas</p>
       <Gallery />
-      <p>
+      <p className={'home-gallery-text'}>
         Our cozy apartments hotel Villa Manja, located in the Triglav National
         Park, awaits you in the most beautiful region of Slovenia - Bohinj,
         located in the Julian Alps. Not far from us are two main attractions of
         Slovenia: the beautiful Lake Bled and Lake Bohinj. Each apartment is
         individually decorated and fully equipped for a comfortable stay. You
-        can visit <a href={'www.villa-manja.com'}>web page</a> dedicated to
-        hotel
+        can visit{' '}
+        <a className={'custom-link'} href={'www.villa-manja.com'}>
+          web page
+        </a>{' '}
+        dedicated to hotel
       </p>
-      <p>
+      <p className={'home-gallery-text'}>
         We also create unique pieces of handmade jewelry from a variety of
         materials such as wood, embroidery, and beads. Most often we use
         ornaments from different nations of the world.
       </p>
-      <p>
+      <p className={'home-gallery-text'}>
         Custom-made jewelry is usually created in one copy. In addition to
         jewelry, we can create embroidered paintings, patchwork quilts, and
         other woven furnishings for you. Some items you can easily buy on our{' '}
-        <a href={'ornamentico.shop'}>store</a>
+        <a
+          href={'ornamentico.shop'}
+          target={'_blank'}
+          className={'custom-link'}
+        >
+          store
+        </a>
       </p>
       <footer>
         <div className="container">
@@ -36,6 +45,7 @@ const Home = () => {
               <a
                 href={'https://www.facebook.com/Ornamentico/'}
                 target={'_blank'}
+                className={'custom-link'}
               >
                 <img
                   src="../../../public/facebook-svgrepo-com.svg"
@@ -48,6 +58,7 @@ const Home = () => {
               <a
                 href="https://www.instagram.com/ornamentico_slovenia/"
                 target={'_blank'}
+                className={'custom-link'}
               >
                 <img
                   src="../../../public/instagram-1-svgrepo-com.svg"
@@ -60,6 +71,7 @@ const Home = () => {
               <a
                 href="https://www.youtube.com/@villamanja_slovenia"
                 target={'_blank'}
+                className={'custom-link'}
               >
                 <img
                   src="../../../public/youtube-color-svgrepo-com.svg"
@@ -72,6 +84,7 @@ const Home = () => {
               <a
                 href="https://www.pinterest.com/Ornamenticoshop/"
                 target={'_blank'}
+                className={'custom-link'}
               >
                 <img
                   src="../../../public/pinterest-1-svgrepo-com.svg"
@@ -84,6 +97,7 @@ const Home = () => {
               <a
                 href="https://www.linkedin.com/company/ornamenticogroup/"
                 target={'_blank'}
+                className={'custom-link'}
               >
                 <img
                   src="../../../public/linkedin-svgrepo-com.svg"
@@ -99,20 +113,23 @@ const Home = () => {
             <li className="row mb-2">
               <div className="col-12 col-md-auto">
                 <span className="contacts-item">
-                  Contacts: Ornamentico Group
+                  Contacts: Ornamentico Group |
                 </span>
               </div>
               <div className="col-12 col-md-auto">
-                <span className="contacts-item">www.ornamentico.com</span>
+                <span className="contacts-item">www.ornamentico.com | </span>
               </div>
               <div className="col-12 col-md-auto">
                 <span className="contacts-item">
-                  Koprivnik v Bohinju 5, 4264, Bohinjska Bistrica, Slovenia
+                  Koprivnik v Bohinju 5, 4264, Bohinjska Bistrica, Slovenia |
                 </span>
               </div>
               <div className="col-12 col-md-auto">
                 <span className="contacts-item">
-                  <a href={'mailto:hello@ornamentico.com'}>
+                  <a
+                    className={'custom-link'}
+                    href={'mailto:hello@ornamentico.com'}
+                  >
                     hello🐶ornamentico.com
                   </a>
                 </span>
