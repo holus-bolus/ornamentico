@@ -61,7 +61,7 @@ const Home = () => {
                 className={'custom-link'}
               >
                 <img
-                  src="/public/instagram-1-svgrepo-com.svg"
+                  src="/instagram-1-svgrepo-com.svg"
                   alt="An Instagram icon"
                   className={'footer-icon'}
                 />
