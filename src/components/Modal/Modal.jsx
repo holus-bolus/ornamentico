@@ -1,3 +1,5 @@
+import './Modal.css';
+
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
@@ -7,22 +9,38 @@ const Modal = ({ isOpen, onClose, children }) => {
         position: 'fixed',
         top: 0,
         left: 0,
-        right: 0,
-        bottom: 0,
+        width: '100vw',
+        height: '100vh',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <div
         style={{
           background: 'white',
-          padding: 20,
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          width: '90%',
+          maxWidth: '400px',
+          position: 'relative',
         }}
       >
-        <button onClick={onClose}>Close</button>
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            border: 'none',
+            background: 'transparent',
+            cursor: 'pointer',
+          }}
+        >
+          Close
+        </button>
         {children}
       </div>
     </div>

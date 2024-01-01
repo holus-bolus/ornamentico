@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './LoginForm.css';
 
 const LoginForm = ({ onLogin }) => {
   const [userName, setUserName] = useState('');
@@ -10,29 +11,33 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)}
-          />
-        </label>
+    <div className="login-modal-overlay">
+      <div className="login-modal">
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-control">
+            <label>Username:</label>
+            <input
+              type="text"
+              value={userName}
+              onChange={(event) => setUserName(event.target.value)}
+            />
+          </div>
+          <div className="form-control">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
+          <div className="form-actions">
+            <button type="submit" className="btn-login">
+              Login
+            </button>
+          </div>
+        </form>
       </div>
-      <div>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    </div>
   );
 };
 

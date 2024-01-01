@@ -1,4 +1,3 @@
-// Blog.jsx
 import React, { useState, useEffect } from 'react';
 
 import Modal from '../Modal/Modal.jsx';
@@ -44,6 +43,10 @@ const Blog = ({ isLoggedIn, onLoginStatusChange, onNavigateToCreatePost }) => {
       });
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <button onClick={() => setIsModalOpen(true)}>Login/Sign up</button>
@@ -60,7 +63,7 @@ const Blog = ({ isLoggedIn, onLoginStatusChange, onNavigateToCreatePost }) => {
       ) : (
         <div>No posts yet</div>
       )}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <LoginForm onLogin={handleLogin} />
       </Modal>
     </div>

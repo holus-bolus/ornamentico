@@ -53,17 +53,20 @@ app.post('/api/posts', authenticateToken, (req, res) => {
 });
 
 app.post('/api/login', (req, res) => {
+  console.log('Login attempt:', req.body);
   const { username, password } = req.body;
   const user = users.find((u) => u.username === username);
 
-  if (user == null || !bcrypt.compareSync(password, user.passwordHash)) {
-    return res.status(400).send('Invalid credentials');
+  if (user && bcrypt.compareSync(password, user.passwordHash)) {
+    const userForToken = { id: user.id, username: user.username };
+    const accessToken = jwt.sign(userForToken, SECRET_KEY, {
+      expiresIn: '24h',
+    });
+    res.json({ accessToken });
+  } else {
+    console.log('Invalid credentials attempt for username:', username);
+    res.status(400).send('Invalid credentials');
   }
-
-  const userForToken = { id: user.id, username: user.username };
-  const accessToken = jwt.sign(userForToken, SECRET_KEY, { expiresIn: '24h' });
-
-  res.json({ accessToken });
 });
 
 app.listen(PORT, () => {
