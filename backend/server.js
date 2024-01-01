@@ -37,6 +37,30 @@ function authenticateToken(req, res, next) {
   });
 }
 
+// Add this route in your server.js
+
+app.post('/api/signup', (req, res) => {
+  console.log('Signup attempt:', req.body);
+  const { username, password } = req.body;
+
+  // Check if the user already exists
+  const existingUser = users.find((u) => u.username === username);
+  if (existingUser) {
+    return res.status(400).send('User already exists');
+  }
+
+  // Hash the password
+  const salt = bcrypt.genSaltSync(10);
+  const passwordHash = bcrypt.hashSync(password, salt);
+
+  // Create a new user and add it to the users array
+  const newUser = { id: users.length + 1, username, passwordHash };
+  users.push(newUser);
+
+  // Optionally log in the user immediately or just return success
+  res.status(201).json({ message: 'User created successfully' });
+});
+
 app.get('/api/posts', (req, res) => {
   console.log('Fetching posts:', posts);
   res.json(posts);
@@ -67,6 +91,10 @@ app.post('/api/login', (req, res) => {
     console.log('Invalid credentials attempt for username:', username);
     res.status(400).send('Invalid credentials');
   }
+});
+
+app.use('*', (req, res) => {
+  res.status(404).send('API route not found');
 });
 
 app.listen(PORT, () => {

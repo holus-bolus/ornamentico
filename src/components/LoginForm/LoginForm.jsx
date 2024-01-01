@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import './LoginForm.css';
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, onSignUp }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onLogin(userName, password);
+    if (isSignUp) {
+      onSignUp(userName, password);
+    } else {
+      onLogin(userName, password);
+    }
   };
 
   return (
@@ -32,7 +37,16 @@ const LoginForm = ({ onLogin }) => {
           </div>
           <div className="form-actions">
             <button type="submit" className="btn-login">
-              Login
+              {isSignUp ? 'Sign Up' : 'Login'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="btn-toggle"
+            >
+              {isSignUp
+                ? 'Already have an account? Login'
+                : 'Need an account? Sign Up'}
             </button>
           </div>
         </form>
