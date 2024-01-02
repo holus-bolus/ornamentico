@@ -61,8 +61,7 @@ const Blog = () => {
         }
         return response.text();
       })
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         onLoginStatusChange(true);
         setIsModalOpen(false);
       })
@@ -104,8 +103,6 @@ const Blog = () => {
     setIsModalOpen(false);
   };
 
-  console.log('isLoggedIn:', isLoggedIn);
-  console.log('onLoginStatusChange:', onLoginStatusChange);
 
   return (
     <div className="blog-container container">

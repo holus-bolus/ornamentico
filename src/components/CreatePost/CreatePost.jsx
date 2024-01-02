@@ -78,7 +78,6 @@ const CreatePost = ({ onSave, onClose }) => {
       })
       .then((data) => {
         // Handle successful post creation
-        console.log('Post created:', data);
         setTitle('');
         setContent('');
         setCoverImage(null); // Clear the cover image state

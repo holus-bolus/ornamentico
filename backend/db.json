@@ -1,8 +1,19 @@
 {
   "users": [
-
+    {
+      "id": 1,
+      "username": "oleksii",
+      "password_hash": "$2a$10$4q3qQk/Vay.3CIbq3K2ftO5cJLpVXhPJLeG.jc5UqjGytSyQiWvJy"
+    }
   ],
   "posts": [
-
+    {
+      "id": 1,
+      "title": "New",
+      "content": "<p>post</p>",
+      "imageUrl": "http://localhost:3000/uploads/image-1704216423513.png",
+      "userId": 1,
+      "createdAt": "2024-01-02T17:27:03.533Z"
+    }
   ]
 }
