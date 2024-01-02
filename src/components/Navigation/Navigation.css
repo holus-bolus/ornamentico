@@ -1,4 +1,43 @@
-
-.navbar-toggler.active {
-  background-color: #fff; /* Customize the background color when menu is open */
+/* Custom styles for navbar */
+.navbar-brand {
+  margin-right: auto; /* Adjust as needed */
 }
+
+.nav-link {
+  margin-right: 1rem; /* Adjust as needed */
+}
+
+/* Bootstrap override styles */
+@media (max-width: 991px) {
+  .navbar-toggler {
+    display: block; /* Show the burger menu */
+  }
+
+  .navbar-collapse {
+    display: none; /* Hide navbar items initially */
+  }
+
+  .navbar-collapse.show {
+    display: block; /* Show navbar items when toggler is clicked */
+  }
+
+  .navbar-brand, .navbar-nav {
+    margin-right: 0; /* Reset margin for mobile */
+  }
+}
+
+/* Ensure the container has the custom width */
+.container-fluid {
+  max-width: 1320px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Active state for nav links */
+.nav-link.active {
+  font-weight: bold;
+  color: #41817F; /* Your preferred color for the active state */
+}
+
+
+

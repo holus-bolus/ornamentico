@@ -9,7 +9,7 @@ const Footer = () => {
             <a
               href={'https://www.facebook.com/Ornamentico/'}
               target={'_blank'}
-              className={'custom-link'}
+              className={'custom-NavLink'}
             >
               <img
                 src="/facebook-svgrepo-com.svg"
@@ -22,7 +22,7 @@ const Footer = () => {
             <a
               href="https://www.instagram.com/ornamentico_slovenia/"
               target={'_blank'}
-              className={'custom-link'}
+              className={'custom-NavLink'}
             >
               <img
                 src="/instagram-1-svgrepo-com.svg"
@@ -35,7 +35,7 @@ const Footer = () => {
             <a
               href="https://www.youtube.com/@villamanja_slovenia"
               target={'_blank'}
-              className={'custom-link'}
+              className={'custom-NavLink'}
             >
               <img
                 src="/youtube-color-svgrepo-com.svg"
@@ -48,7 +48,7 @@ const Footer = () => {
             <a
               href="https://www.pinterest.com/Ornamenticoshop/"
               target={'_blank'}
-              className={'custom-link'}
+              className={'custom-NavLink'}
             >
               <img
                 src="/pinterest-1-svgrepo-com.svg"
@@ -59,13 +59,13 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href="https://www.linkedin.com/company/ornamenticogroup/"
+              href="https://www.NavLinkedin.com/company/ornamenticogroup/"
               target={'_blank'}
-              className={'custom-link'}
+              className={'custom-NavLink'}
             >
               <img
                 src="/linkedin-svgrepo-com.svg"
-                alt="A LinkedIn icon"
+                alt="A NavLinkedIn icon"
                 className={'footer-icon'}
               />
             </a>
@@ -91,7 +91,7 @@ const Footer = () => {
             <div className="col-12 col-md-auto">
               <span className="contacts-item">
                 <a
-                  className={'custom-link'}
+                  className={'custom-NavLink'}
                   href={'mailto:hello@ornamentico.com'}
                 >
                   hello🐶ornamentico.com

@@ -10,19 +10,25 @@ const Navigation = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
+      <div className="container-fluid">
         <Link className="navbar-brand" to={'/'}>
           Main
         </Link>
         <button
-          className={`navbar-toggler ${isMenuOpen ? 'active' : ''}`}
+          className="navbar-toggler"
           type="button"
           onClick={toggleMenu}
+          aria-controls="navbarSupportedContent"
+          aria-expanded={isMenuOpen ? 'true' : 'false'}
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
-          <ul className="navbar-nav">
+        <div
+          className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}
+          id="navbarSupportedContent"
+        >
+          <ul className="navigation-menu navbar-nav ms-auto">
             <li className="nav-item">
               <Link
                 className="nav-link"

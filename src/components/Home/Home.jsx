@@ -19,7 +19,7 @@ const Home = () => {
         Slovenia: the beautiful Lake Bled and Lake Bohinj. Each apartment is
         individually decorated and fully equipped for a comfortable stay. You
         can visit{' '}
-        <a className={'custom-link'} href={'www.villa-manja.com'}>
+        <a className={'custom-NavLink'} href={'www.villa-manja.com'}>
           web page
         </a>{' '}
         dedicated to hotel
@@ -36,7 +36,7 @@ const Home = () => {
         <a
           href={'ornamentico.shop'}
           target={'_blank'}
-          className={'custom-link'}
+          className={'custom-NavLink'}
         >
           store
         </a>

@@ -19,7 +19,7 @@ const ContactForm = () => {
                 <br />
                 4264, Slovenia
                 <br />
-                <a href="mailto:hello@ornamentico.com" className="card-link">
+                <a href="mailto:hello@ornamentico.com" className="card-NavLink">
                   hello🐶ornamentico.com
                 </a>
               </address>
