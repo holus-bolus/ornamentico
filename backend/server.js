@@ -4,24 +4,46 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
+const { Pool } = require('pg'); // PostgreSQL client
+const fs = require('fs');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Make sure this directory exists
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + '-' + Date.now() + path.extname(file.originalname),
+    );
+  },
+});
+const upload = multer({ storage: storage });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+const DB_FILE = './db.json';
 const SECRET_KEY = process.env.SECRET_KEY;
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL, // Ensure this env variable is set
+  ssl: {
+    rejectUnauthorized: false, // This should be true in production for secure connections
+  },
+});
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads'));
 
-// Mock posts array
-let posts = [
-  //... your blog posts
-];
+function readDB() {
+  return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+}
 
-// Mock users array
-let users = [
-  //... your users with hashed passwords
-];
+function writeDB(data) {
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
+}
 
 // Middleware to check for a JWT
 function authenticateToken(req, res, next) {
@@ -37,59 +59,128 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Add this route in your server.js
-
-app.post('/api/signup', (req, res) => {
-  console.log('Signup attempt:', req.body);
-  const { username, password } = req.body;
-
-  // Check if the user already exists
-  const existingUser = users.find((u) => u.username === username);
-  if (existingUser) {
-    return res.status(400).send('User already exists');
+app.post('/api/upload', upload.single('image'), (req, res) => {
+  if (req.file) {
+    // Construct the image URL
+    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${
+      req.file.filename
+    }`;
+    console.log('Image URL:', imageUrl);
+    res.json({ imageUrl });
+  } else {
+    res.status(400).send('No image file provided.');
   }
+});
 
-  // Hash the password
-  const salt = bcrypt.genSaltSync(10);
-  const passwordHash = bcrypt.hashSync(password, salt);
+app.post('/api/signup', async (req, res) => {
+  const { username, password, email } = req.body;
 
-  // Create a new user and add it to the users array
-  const newUser = { id: users.length + 1, username, passwordHash };
-  users.push(newUser);
+  try {
+    const db = readDB();
 
-  // Optionally log in the user immediately or just return success
-  res.status(201).json({ message: 'User created successfully' });
+    // Check if the user already exists
+    const existingUser = db.users.find(
+      (u) => u.username === username || u.email === email,
+    );
+    if (existingUser) {
+      return res.status(400).send('User already exists');
+    }
+
+    // Hash the password
+    const passwordHash = bcrypt.hashSync(password, 10);
+
+    // Create a new user
+    const newUser = {
+      id: db.users.length + 1,
+      username,
+      password_hash: passwordHash,
+      email,
+    };
+    db.users.push(newUser);
+    writeDB(db);
+
+    res
+      .status(201)
+      .json({ message: 'User created successfully', userId: newUser.id });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
 });
 
 app.get('/api/posts', (req, res) => {
-  console.log('Fetching posts:', posts);
-  res.json(posts);
+  try {
+    const db = readDB();
+    res.json(db.posts);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/posts/:postId', (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const db = readDB();
+    const post = db.posts.find((p) => p.id === parseInt(postId));
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+    res.json(post);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
 });
 
 app.post('/api/posts', authenticateToken, (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, imageUrl } = req.body; // Include imageUrl in the destructured fields
   if (!title || !content) {
     return res.status(400).send('Title and content are required');
   }
-  const newPost = { id: posts.length + 1, title, content, userId: req.user.id };
-  posts.push(newPost);
-  res.status(201).json(newPost);
+
+  try {
+    const db = readDB();
+    const newPost = {
+      id: db.posts.length + 1,
+      title,
+      content,
+      imageUrl, // Add imageUrl to the new post object
+      userId: req.user.id,
+      createdAt: new Date().toISOString(),
+    };
+    db.posts.push(newPost);
+    writeDB(db);
+    res.status(201).json(newPost);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
 });
 
 app.post('/api/login', (req, res) => {
-  console.log('Login attempt:', req.body);
   const { username, password } = req.body;
-  const user = users.find((u) => u.username === username);
+  console.log('Login attempt:', { username, password });
 
-  if (user && bcrypt.compareSync(password, user.passwordHash)) {
-    const userForToken = { id: user.id, username: user.username };
-    const accessToken = jwt.sign(userForToken, SECRET_KEY, {
-      expiresIn: '24h',
-    });
-    res.json({ accessToken });
-  } else {
-    console.log('Invalid credentials attempt for username:', username);
-    res.status(400).send('Invalid credentials');
+  try {
+    const db = readDB();
+    const user = db.users.find((u) => u.username === username);
+
+    if (!user) {
+      return res.status(400).send('User not found');
+    }
+
+    if (bcrypt.compareSync(password, user.password_hash)) {
+      const userForToken = { id: user.id, username: user.username };
+      const accessToken = jwt.sign(userForToken, SECRET_KEY, {
+        expiresIn: '24h',
+      });
+      res.json({ accessToken });
+    } else {
+      res.status(400).send('Invalid password');
+    }
+  } catch (error) {
+    console.error('Login error:', error.message);
+    res.status(500).send('Server error');
   }
 });
 

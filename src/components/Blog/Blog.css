@@ -15,25 +15,62 @@
   transition: background-color 0.3s;
 }
 
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust the space between cards */
+  justify-content: center;
+}
+
+
 .blog-button:hover {
   background-color: #0056b3;
 }
 
 /* Post Card Styles */
 .post-card {
-  background-color: #f8f9fa;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px; /* Set the width of the cards */
+  border: 1px solid #ddd; /* A subtle border */
+  border-radius: 8px; /* Rounded corners for the cards */
+  overflow: hidden; /* Ensures content fits within the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff; /* Card background color */
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Ensures the color is not changed by the link */
 }
 
-.post-title {
-  color: #333;
-  margin-bottom: 10px;
+.post-card img {
+  width: 100%; /* Make images responsive */
+  height: auto;
+  display: block;
 }
 
 .post-content {
+  padding: 15px; /* Padding inside the card */
+  color: #666;
+
+}
+
+
+.post-title {
+  font-size: 1.25rem; /* Larger text for the title */
+  margin: 0;
+  padding: 15px; /* Padding at the top of the card */
+  background: #f8f9fa; /* A light background for the title area */
+  border-bottom: 1px solid #ddd; /* A separator from the content */
+}
+
+.post-card:hover {
+  transform: translateY(-5px); /* Slight move up */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+.post-date {
+  padding: 0 15px 10px;
+  font-size: 0.9rem;
   color: #666;
 }
 

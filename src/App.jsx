@@ -22,7 +22,7 @@ function App() {
           path: '/blog',
           element: <Blog />,
         },
-        { path: '/blog-post:id', element: <BlogPost /> },
+        { path: '/blog-post/:postId', element: <BlogPost /> },
         { path: '/contacts', element: <ContactForm /> },
         { path: '/privacy-policy', element: <PrivacyPolicy /> },
       ],

@@ -3,7 +3,7 @@ import './Blog.css';
 import Modal from '../Modal/Modal.jsx';
 import LoginForm from '../LoginForm/LoginForm.jsx';
 import { AuthContext } from '../../AuthContext.jsx';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CreatePost from '../CreatePost/CreatePost.jsx';
 
 const Blog = () => {
@@ -124,16 +124,23 @@ const Blog = () => {
           </button>
         </>
       )}
-      {posts.length > 0 ? (
-        posts.map((post) => (
-          <div key={post.id} className="post-card">
-            <h2 className="post-title">{post.title}</h2>
-            <p className="post-content">{post.content}</p>
-          </div>
-        ))
-      ) : (
-        <div className="no-posts">No posts yet</div>
-      )}
+      <div className="posts-container">
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <Link
+              to={`/blog-post/${post.id}`}
+              className="post-card"
+              key={post.id}
+            >
+              <h2 className="post-title">{post.title}</h2>
+              <p>{new Date(post.createdAt).toLocaleDateString()}</p>
+              {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
+            </Link>
+          ))
+        ) : (
+          <div className="no-posts">No posts yet</div>
+        )}
+      </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <LoginForm onLogin={handleLogin} onSignUp={handleSignUp} />
       </Modal>
