@@ -27,6 +27,7 @@ const CreatePost = ({ onSave, onClose }) => {
     return data.imageUrl;
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 

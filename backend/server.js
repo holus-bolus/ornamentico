@@ -9,18 +9,33 @@ const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
 
+const uploadDir = path.join(__dirname, 'uploads');
+
+// Check if the uploads directory exists, and create it if it doesn't
+if (!fs.existsSync(uploadDir)){
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); // Make sure this directory exists
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + '-' + Date.now() + path.extname(file.originalname),
-    );
-  },
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
 });
 const upload = multer({ storage: storage });
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -62,15 +77,15 @@ function authenticateToken(req, res, next) {
 app.post('/api/upload', upload.single('image'), (req, res) => {
   if (req.file) {
     // Construct the image URL
-    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${
-      req.file.filename
-    }`;
-    console.log('Image URL:', imageUrl);
+    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     res.json({ imageUrl });
   } else {
     res.status(400).send('No image file provided.');
   }
 });
+
+
+app.use('/uploads', express.static('uploads'));
 
 app.post('/api/signup', async (req, res) => {
   const { username, password, email } = req.body;
