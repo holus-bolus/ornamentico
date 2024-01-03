@@ -13,6 +13,7 @@ import LoginForm from "./components/LoginForm/LoginForm.jsx";
 import AdminPanel from "./components/AdminPanel/AdminPanel.jsx";
 import {RequireAuth, useAuthContext} from "./hooks/useAuth.jsx";
 import CreatePost from "./components/CreatePost/CreatePost.jsx";
+import EditPost from "./components/EditPost/EditPost.jsx";
 
 
 const ProtectedRoute = ({children}) => {
@@ -46,6 +47,10 @@ const Router = () => {
         {
           path: '/blog',
           element: <Blog/>,
+        },
+        {
+          path: '/edit-post/:postId',
+          element: <EditPost />
         },
         {path: '/blog-post/:postId', element: <BlogPost/>},
         {path: '/contacts', element: <ContactForm/>},

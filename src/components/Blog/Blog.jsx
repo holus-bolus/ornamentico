@@ -13,6 +13,26 @@ const Blog = () => {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [fetchTrigger, setFetchTrigger] = useState(0);
 
+  const handleDelete = (postId) => {
+    fetch(`/api/posts/${postId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error deleting post');
+        }
+        setPosts(posts.filter(post => post.id !== postId));
+      })
+      .catch(error => console.error('Error:', error));
+  };
+  const handleEdit = (post) => {
+    navigate(`/edit-post/${post.id}`);
+  };
+
+
   const handleCreatePostClose = () => {
     setShowCreatePost(false);
     setFetchTrigger(fetchTrigger + 1);
@@ -124,20 +144,24 @@ const Blog = () => {
       )}
       <div className="posts-container">
         {posts.length > 0 ? (
-          posts.map((post) => (
-            <Link
-              to={`/blog-post/${post.id}`}
-              className="post-card"
-              key={post.id}
-            >
-              <h2 className="post-title">{post.title}</h2>
-              <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-              {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
-            </Link>
-          ))
-        ) : (
-          <div className="no-posts">No posts yet</div>
-        )}
+              posts.map((post) => (
+                <div className="post-card" key={post.id}>
+                  <Link to={`/blog-post/${post.id}`}>
+                    <h2 className="post-title">{post.title}</h2>
+                    <p>{new Date(post.createdAt).toLocaleDateString()}</p>
+                    {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
+                  </Link>
+                  {user && (
+                    <div>
+                      <button onClick={() => handleEdit(post)}>Edit</button>
+                      <button onClick={() => handleDelete(post.id)}>Delete</button>
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="no-posts">No posts yet</div>
+            )}
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <LoginForm onLogin={handleLogin} onSignUp={handleSignUp} onClose={handleCloseModal}/>

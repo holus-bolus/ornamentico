@@ -4,16 +4,17 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
-const { Pool } = require('pg'); // PostgreSQL client
+const {Pool} = require('pg'); // PostgreSQL client
 const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
-
+const DB_FILE = './db.json';
 const uploadDir = path.join(__dirname, 'uploads');
+const db = readDB();
 
 // Check if the uploads directory exists, and create it if it doesn't
-if (!fs.existsSync(uploadDir)){
-  fs.mkdirSync(uploadDir, { recursive: true });
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, {recursive: true});
 }
 
 
@@ -25,12 +26,12 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
-const upload = multer({ storage: storage });
+const upload = multer({storage: storage});
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DB_FILE = './db.json';
+
 const SECRET_KEY = process.env.SECRET_KEY;
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Ensure this env variable is set
@@ -69,7 +70,7 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   if (req.file) {
     // Construct the image URL
     const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-    res.json({ imageUrl });
+    res.json({imageUrl});
   } else {
     res.status(400).send('No image file provided.');
   }
@@ -79,11 +80,9 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
 app.use('/uploads', express.static('uploads'));
 
 app.post('/api/signup', async (req, res) => {
-  const { username, password, email } = req.body;
+  const {username, password, email} = req.body;
 
   try {
-    const db = readDB();
-
     // Check if the user already exists
     const existingUser = db.users.find(
       (u) => u.username === username || u.email === email,
@@ -107,7 +106,7 @@ app.post('/api/signup', async (req, res) => {
 
     res
       .status(201)
-      .json({ message: 'User created successfully', userId: newUser.id });
+      .json({message: 'User created successfully', userId: newUser.id});
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -116,7 +115,6 @@ app.post('/api/signup', async (req, res) => {
 
 app.get('/api/posts', (req, res) => {
   try {
-    const db = readDB();
     res.json(db.posts);
   } catch (error) {
     res.status(500).send('Server error');
@@ -124,10 +122,9 @@ app.get('/api/posts', (req, res) => {
 });
 
 app.get('/api/posts/:postId', (req, res) => {
-  const { postId } = req.params;
+  const {postId} = req.params;
 
   try {
-    const db = readDB();
     const post = db.posts.find((p) => p.id === parseInt(postId));
     if (!post) {
       return res.status(404).send('Post not found');
@@ -147,13 +144,12 @@ app.get('/api/posts/:postId', (req, res) => {
 
 
 app.post('/api/posts', authenticateToken, (req, res) => {
-  const { title, content, imageUrl } = req.body; // Include imageUrl in the destructured fields
+  const {title, content, imageUrl} = req.body; // Include imageUrl in the destructured fields
   if (!title || !content) {
     return res.status(400).send('Title and content are required');
   }
 
   try {
-    const db = readDB();
     const newPost = {
       id: db.posts.length + 1,
       title,
@@ -171,11 +167,10 @@ app.post('/api/posts', authenticateToken, (req, res) => {
 });
 
 app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  console.log('Login attempt:', { username, password });
+  const {username, password} = req.body;
+  console.log('Login attempt:', {username, password});
 
   try {
-    const db = readDB();
     const user = db.users.find((u) => u.username === username);
 
     if (!user) {
@@ -183,11 +178,11 @@ app.post('/api/login', (req, res) => {
     }
 
     if (bcrypt.compareSync(password, user.password_hash)) {
-      const userForToken = { id: user.id, username: user.username };
+      const userForToken = {id: user.id, username: user.username};
       const accessToken = jwt.sign(userForToken, SECRET_KEY, {
         expiresIn: '24h',
       });
-      res.json({ accessToken });
+      res.json({accessToken});
     } else {
       res.status(400).send('Invalid password');
     }
@@ -198,10 +193,8 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/posts/:postId/comments', (req, res) => {
-  const { postId } = req.params;
-  const { content } = req.body; // assuming a 'content' field for the comment text
-
-  const db = readDB();
+  const {postId} = req.params;
+  const {content} = req.body; // assuming a 'content' field for the comment text
   const post = db.posts.find(p => p.id === parseInt(postId));
   if (!post) {
     return res.status(404).send('Post not found');
@@ -221,9 +214,7 @@ app.post('/api/posts/:postId/comments', (req, res) => {
 
 
 app.delete('/api/comments/:commentId', authenticateToken, (req, res) => {
-  const { commentId } = req.params;
-
-  const db = readDB();
+  const {commentId} = req.params;
   const commentIndex = db.comments.findIndex(c => c.id === parseInt(commentId));
   if (commentIndex === -1) {
     return res.status(404).send('Comment not found');
@@ -237,6 +228,44 @@ app.delete('/api/comments/:commentId', authenticateToken, (req, res) => {
   db.comments.splice(commentIndex, 1);
   writeDB(db);
   res.status(204).send();
+});
+
+app.delete('/api/posts/:postId', authenticateToken, (req, res) => {
+  const {postId} = req.params;
+  const postIndex = db.posts.findIndex(p => p.id === parseInt(postId));
+  if (postIndex === -1) {
+    return res.status(404).send('Post not found');
+  }
+  if (req.user.id !== db.posts[postIndex].userId) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  db.posts.splice(postIndex, 1);
+  writeDB(db);
+  res.status(204).send();
+});
+
+
+app.put('/api/posts/:postId', authenticateToken, (req, res) => {
+  const {postId} = req.params;
+  const {title, content, imageUrl} = req.body;
+  const postIndex = db.posts.findIndex(p => p.id === parseInt(postId));
+  if (postIndex === -1) {
+    return res.status(404).send('Post not found');
+  }
+
+  if (req.user.id !== db.posts[postIndex].userId) {
+    return res.status(403).send('Unauthorized');
+  }
+
+  db.posts[postIndex] = {
+    ...db.posts[postIndex],
+    title,
+    content,
+    imageUrl,
+  }
+  writeDB(db);
+  res.status(200).json(db.posts[postIndex]);
 });
 
 

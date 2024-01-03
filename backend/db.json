@@ -30,6 +30,12 @@
       "postId": 2,
       "content": "zhopa",
       "createdAt": "2024-01-03T10:33:36.408Z"
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "content": "zhopa",
+      "createdAt": "2024-01-03T11:09:25.252Z"
     }
   ]
 }
