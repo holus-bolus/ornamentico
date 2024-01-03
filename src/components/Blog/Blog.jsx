@@ -140,7 +140,7 @@ const Blog = () => {
         )}
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <LoginForm onLogin={handleLogin} onSignUp={handleSignUp} />
+        <LoginForm onLogin={handleLogin} onSignUp={handleSignUp} onClose={handleCloseModal}/>
       </Modal>
     </div>
   );
