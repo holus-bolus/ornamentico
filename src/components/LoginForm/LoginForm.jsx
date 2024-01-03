@@ -1,58 +1,25 @@
-import { useState } from 'react';
-import './LoginForm.css';
+import React, { useContext, useState } from 'react';
+import {AuthContext} from "../../AuthContext.jsx";
 
-const LoginForm = ({ onLogin, onSignUp, loginError }) => {
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
+const LoginForm = () => {
+  const [username, setUsername] = useState('');
+  const { login } = useContext(AuthContext);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (isSignUp) {
-      onSignUp(userName, password);
-    } else {
-      onLogin(userName, password);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(username);
   };
 
   return (
-    <div className="login-modal-overlay">
-      <div className="login-modal">
-        <form onSubmit={handleSubmit} className="login-form">
-          {loginError && <div className="login-error">{loginError}</div>}
-          <div className="form-control">
-            <label>Username:</label>
-            <input
-              type="text"
-              value={userName}
-              onChange={(event) => setUserName(event.target.value)}
-            />
-          </div>
-          <div className="form-control">
-            <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </div>
-          <div className="form-actions">
-            <button type="submit" className="btn-login">
-              {isSignUp ? 'Sign Up' : 'Login'}
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="btn-toggle"
-            >
-              {isSignUp
-                ? 'Already have an account? Login'
-                : 'Need an account? Sign Up'}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
+      <button type="submit">Login</button>
+    </form>
   );
 };
 

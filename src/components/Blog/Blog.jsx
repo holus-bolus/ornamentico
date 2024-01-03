@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CreatePost from '../CreatePost/CreatePost.jsx';
 
 const Blog = () => {
-  const { isLoggedIn, onLoginStatusChange } = useContext(AuthContext);
+  const { user, login, logout } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -29,6 +29,7 @@ const Blog = () => {
       .then((data) => setPosts(data))
       .catch((error) => console.error('Error fetching posts:', error));
   }, [fetchTrigger]);
+
 
   const navigate = useNavigate();
   const onNavigateToCreatePost = () => {
@@ -95,8 +96,8 @@ const Blog = () => {
       });
   };
 
-  const handleLogout = () => {
-    onLoginStatusChange(false);
+  const handleLogoutClick = () => {
+    logout();
   };
 
   const handleCloseModal = () => {
@@ -104,19 +105,19 @@ const Blog = () => {
   };
 
 
-  return (
+  return  (
     <div className="blog-container container">
-      {!isLoggedIn && (
+      {!user && (
         <button className="blog-button" onClick={() => setIsModalOpen(true)}>
-          Login/Sign up
+          Login
         </button>
       )}
-      {isLoggedIn && (
+      {user && (
         <>
           <button className="blog-button" onClick={onNavigateToCreatePost}>
             Create a post
           </button>
-          <button className="blog-button" onClick={handleLogout}>
+          <button className="blog-button" onClick={handleLogoutClick}>
             Logout
           </button>
         </>
