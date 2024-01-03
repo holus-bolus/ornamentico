@@ -132,12 +132,19 @@ app.get('/api/posts/:postId', (req, res) => {
     if (!post) {
       return res.status(404).send('Post not found');
     }
-    res.json(post);
+
+    // Filter comments for this post
+    const postComments = db.comments ? db.comments.filter(comment => comment.postId === parseInt(postId)) : [];
+
+
+    // Include comments in the response
+    res.json({...post, comments: postComments});
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
   }
 });
+
 
 app.post('/api/posts', authenticateToken, (req, res) => {
   const { title, content, imageUrl } = req.body; // Include imageUrl in the destructured fields
@@ -189,6 +196,49 @@ app.post('/api/login', (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+app.post('/api/posts/:postId/comments', (req, res) => {
+  const { postId } = req.params;
+  const { content } = req.body; // assuming a 'content' field for the comment text
+
+  const db = readDB();
+  const post = db.posts.find(p => p.id === parseInt(postId));
+  if (!post) {
+    return res.status(404).send('Post not found');
+  }
+
+  const newComment = {
+    id: db.comments.length + 1,
+    postId: parseInt(postId),
+    content,
+    createdAt: new Date().toISOString()
+  };
+
+  db.comments.push(newComment);
+  writeDB(db);
+  res.status(201).json(newComment);
+});
+
+
+app.delete('/api/comments/:commentId', authenticateToken, (req, res) => {
+  const { commentId } = req.params;
+
+  const db = readDB();
+  const commentIndex = db.comments.findIndex(c => c.id === parseInt(commentId));
+  if (commentIndex === -1) {
+    return res.status(404).send('Comment not found');
+  }
+
+  // Optional: Check if the logged-in user is the author of the comment
+  // if (req.user.id !== db.comments[commentIndex].userId) {
+  //   return res.status(403).send('Unauthorized');
+  // }
+
+  db.comments.splice(commentIndex, 1);
+  writeDB(db);
+  res.status(204).send();
+});
+
 
 app.use('*', (req, res) => {
   res.status(404).send('API route not found');
