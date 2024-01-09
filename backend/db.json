@@ -22,6 +22,30 @@
       "imageUrl": "http://localhost:3000/uploads/image-1704275499442.png",
       "userId": 1,
       "createdAt": "2024-01-03T09:51:39.457Z"
+    },
+    {
+      "id": 3,
+      "title": "Third",
+      "content": "<h2>New post</h2><p><br></p><p><br></p><p>laksdjflksdjf</p><p><br></p><p><br></p><p>asdfkjasdkfjasdkljf</p>",
+      "imageUrl": "http://localhost:3000/uploads/image-1704793434000.png",
+      "userId": 1,
+      "createdAt": "2024-01-09T09:43:54.014Z"
+    },
+    {
+      "id": 4,
+      "title": "new post without content",
+      "content": "<p><br></p>",
+      "imageUrl": "http://localhost:3000/uploads/image-1704797565323.png",
+      "userId": 1,
+      "createdAt": "2024-01-09T10:52:45.336Z"
+    },
+    {
+      "id": 5,
+      "title": "sdfasdkfk;j",
+      "content": "<p>dsfsl;kdfklsdflkasdlk;f<img src=\"http://localhost:3000/uploads/image-1704800176723.png\"></p><p>asd;flasdk;lfaslkdfk<img src=\"http://localhost:3000/uploads/image-1704800183752.png\"></p>",
+      "imageUrl": "",
+      "userId": 1,
+      "createdAt": "2024-01-09T11:36:30.723Z"
     }
   ],
   "comments": [
@@ -36,6 +60,18 @@
       "postId": 1,
       "content": "zhopa",
       "createdAt": "2024-01-03T11:09:25.252Z"
+    },
+    {
+      "id": 3,
+      "postId": 2,
+      "content": "bigger zhopa",
+      "createdAt": "2024-01-09T09:18:39.562Z"
+    },
+    {
+      "id": 4,
+      "postId": 4,
+      "content": "comment",
+      "createdAt": "2024-01-09T12:16:48.238Z"
     }
   ]
 }

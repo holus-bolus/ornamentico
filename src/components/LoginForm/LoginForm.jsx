@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../AuthContext.jsx';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
 const LoginForm = ({ onClose }) => {
@@ -12,7 +12,7 @@ const LoginForm = ({ onClose }) => {
 
   const validateForm = () => {
     if (!username || !password) {
-      setError("Username and password are required");
+      setError('Username and password are required');
       return false;
     }
     return true;
@@ -73,7 +73,9 @@ const LoginForm = ({ onClose }) => {
         />
       </label>
       {error && <div className="error">{error}</div>}
-      <button type="submit" className="login-button">Login</button>
+      <button type="submit" className="login-button">
+        Login
+      </button>
     </form>
   );
 };

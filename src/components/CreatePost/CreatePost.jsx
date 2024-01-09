@@ -1,131 +1,141 @@
-import { useState } from 'react';
-import './CreatePost.css';
-import { useNavigate } from 'react-router-dom';
-import 'react-quill/dist/quill.snow.css';
+import React, { useState, useRef, useCallback } from 'react';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './CreatePost.css';
 
 const CreatePost = ({ onSave, onClose }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [coverImage, setCoverImage] = useState(null);
-  const navigate = useNavigate();
+  const [imageFile, setImageFile] = useState(null);
+  const quillRef = useRef(null);
 
-  const handleImageUpload = async (file) => {
+  const imageHandler = useCallback(async () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (file) {
+        try {
+          const imageUrl = await handleImageUpload(file);
+          const editor = quillRef.current.getEditor();
+          const range = editor.getSelection(true);
+          editor.insertEmbed(range.index, 'image', imageUrl);
+        } catch (error) {
+          console.error('Image upload failed:', error);
+        }
+      }
+    };
+  }, []);
+
+  const handleImageUpload = (file) => {
     const formData = new FormData();
     formData.append('image', file);
-
-    const response = await fetch('/api/upload', {
+    return fetch('/api/upload', {
       method: 'POST',
       body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to upload image.');
-    }
-
-    const data = await response.json();
-    return data.imageUrl;
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to upload image.');
+        }
+        return response.json();
+      })
+      .then((data) => data.imageUrl);
   };
 
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: '1' }, { header: '2' }, { font: [] }],
+        [{ size: [] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['link', 'image', 'video'],
+        ['clean'],
+      ],
+      handlers: {
+        image: imageHandler,
+      },
+    },
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Retrieve the JWT token from local storage
     const token = localStorage.getItem('token');
-    console.log('Token:', token);
-
-    // Check if token is available
     if (!token) {
       console.error('No token found');
-      // Handle the case where the token is not available
       return;
     }
 
-    let imageUrl = '';
-    if (coverImage) {
-      try {
-        imageUrl = await handleImageUpload(coverImage);
-      } catch (error) {
-        console.error('Image upload failed:', error);
-        // Handle image upload error, e.g., set an error message in state
-        return;
-      }
-    }
-
-    // Create the post payload with the title, content, and imageUrl
-    const postPayload = {
-      title,
-      content,
-      imageUrl, // Include the image URL in the post payload
-    };
+    const postPayload = { title, content, imageUrl: '' };
 
     fetch('/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Include the token in the request
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(postPayload), // Use the postPayload for the body data
+      body: JSON.stringify(postPayload),
     })
       .then((response) => {
         if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
+          throw new Error('Network response was not ok');
         }
         return response.json();
       })
       .then((data) => {
-        // Handle successful post creation
         setTitle('');
         setContent('');
-        setCoverImage(null); // Clear the cover image state
+        setImageFile(null);
         onClose();
         onSave(data);
       })
       .catch((error) => {
         console.error('Error creating post:', error);
-        // Optionally set an error state and display an error message
       });
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      // You would handle image upload here, possibly using a function to upload
-      // the image to your server and then setting the cover image URL
-      // For now, we'll just keep the file object
-      setCoverImage(file);
-    }
-  };
-  const handleContentChange = (value) => {
-    setContent(value);
-  };
-
   return (
-    <div className="create-post-container">
+    <div className="container mt-4">
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
           <input
             type="text"
+            className="form-control"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="content">Content:</label>
-          <ReactQuill value={content} onChange={handleContentChange} />
+        <div className="mb-3">
+          <label className="form-label">Content</label>
+          <ReactQuill
+            ref={quillRef}
+            value={content}
+            onChange={setContent}
+            modules={modules}
+          />
         </div>
-        <div className="form-group">
-          <label htmlFor="coverImage">Cover Image:</label>
-          <input type="file" id="coverImage" onChange={handleImageChange} />
+        <div className="mb-3">
+          <label htmlFor="imageFile" className="form-label">
+            Image
+          </label>
+          <input
+            type="file"
+            className="form-control"
+            id="imageFile"
+            onChange={(e) => setImageFile(e.target.files[0])}
+          />
         </div>
-        <div className="form-actions">
-          <button type="submit">Create Post</button>
-        </div>
+        <button type="submit" className="btn btn-primary">
+          Create Post
+        </button>
       </form>
     </div>
   );

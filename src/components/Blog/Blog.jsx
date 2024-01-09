@@ -13,25 +13,41 @@ const Blog = () => {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [fetchTrigger, setFetchTrigger] = useState(0);
 
+  const navigate = useNavigate();
+  const handleKeyPress = (event) => {
+    // Check if the key combination 'Ctrl+Shift+L' is pressed
+    if (event.ctrlKey && event.shiftKey && event.code === 'KeyL') {
+      setIsModalOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   const handleDelete = (postId) => {
     fetch(`/api/posts/${postId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Error deleting post');
         }
-        setPosts(posts.filter(post => post.id !== postId));
+        setPosts(posts.filter((post) => post.id !== postId));
       })
-      .catch(error => console.error('Error:', error));
+      .catch((error) => console.error('Error:', error));
   };
   const handleEdit = (post) => {
     navigate(`/edit-post/${post.id}`);
   };
-
 
   const handleCreatePostClose = () => {
     setShowCreatePost(false);
@@ -50,8 +66,6 @@ const Blog = () => {
       .catch((error) => console.error('Error fetching posts:', error));
   }, [fetchTrigger]);
 
-
-  const navigate = useNavigate();
   const onNavigateToCreatePost = () => {
     setShowCreatePost(true);
   };
@@ -83,7 +97,6 @@ const Blog = () => {
         return response.text();
       })
       .then(() => {
-        onLoginStatusChange(true);
         setIsModalOpen(false);
       })
       .catch((error) => {
@@ -108,7 +121,6 @@ const Blog = () => {
       })
       .then((data) => {
         localStorage.setItem('token', data.accessToken);
-        onLoginStatusChange(true);
         setIsModalOpen(false);
       })
       .catch((error) => {
@@ -124,14 +136,8 @@ const Blog = () => {
     setIsModalOpen(false);
   };
 
-
-  return  (
+  return (
     <div className="blog-container container">
-      {!user && (
-        <button className="blog-button" onClick={() => setIsModalOpen(true)}>
-          Login
-        </button>
-      )}
       {user && (
         <>
           <button className="blog-button" onClick={onNavigateToCreatePost}>
@@ -144,27 +150,31 @@ const Blog = () => {
       )}
       <div className="posts-container">
         {posts.length > 0 ? (
-              posts.map((post) => (
-                <div className="post-card" key={post.id}>
-                  <Link to={`/blog-post/${post.id}`}>
-                    <h2 className="post-title">{post.title}</h2>
-                    <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-                    {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
-                  </Link>
-                  {user && (
-                    <div>
-                      <button onClick={() => handleEdit(post)}>Edit</button>
-                      <button onClick={() => handleDelete(post.id)}>Delete</button>
-                    </div>
-                  )}
+          posts.map((post) => (
+            <div className="post-card" key={post.id}>
+              <Link to={`/blog-post/${post.id}`}>
+                <h2 className="post-title">{post.title}</h2>
+                <p>{new Date(post.createdAt).toLocaleDateString()}</p>
+                {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
+              </Link>
+              {user && (
+                <div>
+                  <button onClick={() => handleEdit(post)}>Edit</button>
+                  <button onClick={() => handleDelete(post.id)}>Delete</button>
                 </div>
-              ))
-            ) : (
-              <div className="no-posts">No posts yet</div>
-            )}
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="no-posts">No posts yet</div>
+        )}
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <LoginForm onLogin={handleLogin} onSignUp={handleSignUp} onClose={handleCloseModal}/>
+        <LoginForm
+          onLogin={handleLogin}
+          onSignUp={handleSignUp}
+          onClose={handleCloseModal}
+        />
       </Modal>
     </div>
   );
