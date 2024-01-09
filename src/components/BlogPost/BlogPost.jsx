@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import './BlogPost.css';
 
@@ -7,7 +7,7 @@ const BlogPost = () => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
-  const {postId} = useParams();
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const BlogPost = () => {
         throw new Error('Network response was not ok.');
       })
       .then((data) => {
-        setPost(data)
+        setPost(data);
         setComments(data.comments || []);
       })
       .catch((error) => console.error('Error fetching post:', error));
@@ -38,9 +38,9 @@ const BlogPost = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({content: newComment}),
+        body: JSON.stringify({ content: newComment }),
       });
       if (response.ok) {
         const addedComment = await response.json();
@@ -50,7 +50,7 @@ const BlogPost = () => {
     } catch (error) {
       console.error('Error saving comment:', error);
     }
-  }
+  };
 
   const handleBackClick = () => {
     navigate(-1); // This will take the user back to the previous page
@@ -69,11 +69,11 @@ const BlogPost = () => {
         {new Date(post.createdAt).toLocaleDateString()}
       </p>
       {post.imageUrl && (
-        <img className="post-image" src={post.imageUrl} alt={post.title}/>
+        <img className="post-image" src={post.imageUrl} alt={post.title} />
       )}
       <div
         className="post-content"
-        dangerouslySetInnerHTML={{__html: sanitizedContent}}
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       ></div>
       <div className="comments-container">
         <h3>Comments:</h3>

@@ -1,4 +1,4 @@
-import { useAuth } from "../../hooks/useAuth.jsx";
+import { useAuth } from '../../hooks/useAuth.jsx';
 
 const AdminPanel = () => {
   const { logout } = useAuth();

@@ -18,6 +18,10 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 
+function findPostIndex(postId, db) {
+  return db.posts.findIndex(p => p.id === parseInt(postId));
+}
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); // Make sure this directory exists
@@ -122,24 +126,16 @@ app.get('/api/posts', (req, res) => {
 });
 
 app.get('/api/posts/:postId', (req, res) => {
-  const {postId} = req.params;
+  const { postId } = req.params;
+  const postIndex = findPostIndex(postId, db);
 
-  try {
-    const post = db.posts.find((p) => p.id === parseInt(postId));
-    if (!post) {
-      return res.status(404).send('Post not found');
-    }
-
-    // Filter comments for this post
-    const postComments = db.comments ? db.comments.filter(comment => comment.postId === parseInt(postId)) : [];
-
-
-    // Include comments in the response
-    res.json({...post, comments: postComments});
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server error');
+  if (postIndex === -1) {
+    return res.status(404).send('Post not found');
   }
+
+  const post = db.posts[postIndex];
+  const postComments = db.comments ? db.comments.filter(comment => comment.postId === parseInt(postId)) : [];
+  res.json({ ...post, comments: postComments });
 });
 
 
@@ -213,19 +209,18 @@ app.post('/api/posts/:postId/comments', (req, res) => {
 });
 
 
-app.delete('/api/comments/:commentId', authenticateToken, (req, res) => {
-  const {commentId} = req.params;
-  const commentIndex = db.comments.findIndex(c => c.id === parseInt(commentId));
-  if (commentIndex === -1) {
-    return res.status(404).send('Comment not found');
+app.delete('/api/posts/:postId', authenticateToken, (req, res) => {
+  const { postId } = req.params;
+  const postIndex = findPostIndex(postId, db);
+
+  if (postIndex === -1) {
+    return res.status(404).send('Post not found');
+  }
+  if (req.user.id !== db.posts[postIndex].userId) {
+    return res.status(403).send('Unauthorized');
   }
 
-  // Optional: Check if the logged-in user is the author of the comment
-  // if (req.user.id !== db.comments[commentIndex].userId) {
-  //   return res.status(403).send('Unauthorized');
-  // }
-
-  db.comments.splice(commentIndex, 1);
+  db.posts.splice(postIndex, 1);
   writeDB(db);
   res.status(204).send();
 });
@@ -247,9 +242,9 @@ app.delete('/api/posts/:postId', authenticateToken, (req, res) => {
 
 
 app.put('/api/posts/:postId', authenticateToken, (req, res) => {
-  const {postId} = req.params;
-  const {title, content, imageUrl} = req.body;
-  const postIndex = db.posts.findIndex(p => p.id === parseInt(postId));
+  const { postId } = req.params;
+  const postIndex = findPostIndex(postId, db);
+
   if (postIndex === -1) {
     return res.status(404).send('Post not found');
   }
@@ -258,14 +253,11 @@ app.put('/api/posts/:postId', authenticateToken, (req, res) => {
     return res.status(403).send('Unauthorized');
   }
 
-  db.posts[postIndex] = {
-    ...db.posts[postIndex],
-    title,
-    content,
-    imageUrl,
-  }
+  // Update the post with new values
+  const updatedPost = { ...db.posts[postIndex], ...req.body };
+  db.posts[postIndex] = updatedPost;
   writeDB(db);
-  res.status(200).json(db.posts[postIndex]);
+  res.status(200).json(updatedPost);
 });
 
 
