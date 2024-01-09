@@ -18,6 +18,7 @@ import AdminPanel from './components/AdminPanel/AdminPanel.jsx';
 import { RequireAuth, useAuthContext } from './hooks/useAuth.jsx';
 import CreatePost from './components/CreatePost/CreatePost.jsx';
 import EditPost from './components/EditPost/EditPost.jsx';
+import NotFoundPage from './components/NotFound/NotFound.jsx';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuthContext();
@@ -61,6 +62,10 @@ const Router = () => {
         { path: '/blog-post/:postId', element: <BlogPost /> },
         { path: '/contacts', element: <ContactForm /> },
         { path: '/privacy-policy', element: <PrivacyPolicy /> },
+        {
+          path: '*',
+          element: <NotFoundPage />,
+        },
       ],
     },
   ]);
