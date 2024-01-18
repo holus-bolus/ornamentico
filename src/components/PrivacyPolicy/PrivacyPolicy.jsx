@@ -45,7 +45,7 @@ const PrivacyPolicy = () => {
           95/46 / EC (hereinafter: “General Data Protection Regulation”), the
           following information is covered:
         </p>
-        <ul>
+        <ul className="privacy-list">
           <li>contact information of the company,</li>
           <li>
             purposes, bases, and types of processing of various types of
@@ -72,7 +72,7 @@ const PrivacyPolicy = () => {
           data about you that we need to perform the services that you have
           ordered or are using. This personal information is:
         </p>
-        <ul>
+        <ul className="privacy-list">
           <li>Name and surname</li>
           <li>Address</li>
           <li>E-mail address</li>
@@ -244,7 +244,7 @@ const PrivacyPolicy = () => {
           We grant you the following rights in relation to the processing of
           your personal data:
         </p>
-        <ol>
+        <ol className="privacy-list">
           <li>the right of access to data</li>
           <li>the right of rectification</li>
           <li>the right to erasure (the “right to be forgotten”)</li>
@@ -259,7 +259,7 @@ const PrivacyPolicy = () => {
             processed in relation to you and, if so, access to personal data and
             the following information:
           </p>
-          <ul>
+          <ul className="privacy-list">
             <li>processing purposes,</li>
             <li>the types of personal data being processed,</li>
             <li>
@@ -300,7 +300,7 @@ const PrivacyPolicy = () => {
             You have the right to have our personal data deleted without undue
             delay when one of the following reasons applies:
           </p>
-          <ul>
+          <ul className="privacy-list">
             <li>
               where personal data are no longer needed for the purposes for
               which they were collected or otherwise processed,
@@ -326,7 +326,7 @@ const PrivacyPolicy = () => {
             You have the right to limit the processing of your personal data
             when one of the following cases applies:
           </p>
-          <ul>
+          <ul className="privacy-list">
             <li>
               when you dispute the accuracy of the data, for a period that
               allows us to verify the accuracy of the personal data,

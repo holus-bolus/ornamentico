@@ -7,8 +7,13 @@ const BlogPost = () => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [likes, setLikes] = useState(0);
+
   const { postId } = useParams();
   const navigate = useNavigate();
+  const handleLikeClick = () => {
+    setLikes(likes + 1);
+  };
 
   useEffect(() => {
     fetch(`/api/posts/${postId}`)
@@ -75,6 +80,12 @@ const BlogPost = () => {
         className="post-content"
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       ></div>
+      <div className="like-section">
+        <button onClick={handleLikeClick} className="like-button">
+          👍 Like
+        </button>
+        <span className="likes-count">{likes} Likes</span>
+      </div>
       <div className="comments-container">
         <h3>Comments:</h3>
         {comments.map((comment) => (

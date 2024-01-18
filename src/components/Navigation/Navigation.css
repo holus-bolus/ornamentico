@@ -1,43 +1,204 @@
-/* Custom styles for navbar */
-.navbar-brand {
-  margin-right: auto; /* Adjust as needed */
+/* Styles for the navigation container */
+nav {
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Space out the items */
+  align-items: center; /* Align items vertically */
+
+  background-color: #f8f9fa; /* Light background color, change as needed */
 }
 
-.nav-link {
-  margin-right: 1rem; /* Adjust as needed */
+
+/* Remove underline from all nav links */
+.custom-navbar a, .custom-navbar a:visited, .custom-navbar a:hover, .custom-navbar a:active {
+  text-decoration: none; /* This line removes the underline */
 }
 
-/* Bootstrap override styles */
-@media (max-width: 991px) {
+/* Apply active styles to NavLink */
+.custom-navbar a.active {
+  color: #41817F;
+  font-weight: bold;
+}
+
+
+/* Styles for the list */
+ul {
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Space out the items */
+  align-items: center; /* Align items vertically */
+  width: 100%; /* Full width */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  list-style-type: none; /* Remove bullet points */
+}
+
+/* Styles for the list items */
+li {
+  margin: 0 0.5rem; /* Add some margin between items */
+}
+
+/* Styles for the links */
+a {
+  color: black; /* Default link color */
+  text-decoration: none; /* Removes underline */
+  font-size: 1rem; /* Set the font size */
+  padding: 0.5rem; /* Add padding to increase clickable area */
+}
+
+/* Hover and active styles for the links */
+a:hover,
+a:active {
+  color: #41817F; /* Color for hover and active state */
+  text-decoration: underline; /* Adds underline on hover */
+}
+
+/* Custom style for active link */
+a.active {
+  font-weight: bold; /* Bold font for active state */
+  color: #41817F; /* Color for active state */
+}
+
+.custom-navbar {
+  background: #f8f9fa; /* Light background color, change as needed */
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding-top: 20px;
+  /*padding-bottom: 20px;*/
+}
+
+ul {
+  list-style-type: none; /* Remove bullet points */
+  padding-left: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  display: flex; /* Use flexbox for horizontal layout */
+  justify-content: space-between; /* Distribute space between items */
+}
+
+li {
+  margin: 0 0.5rem; /* Horizontal margin between list items */
+}
+
+a {
+  color: black; /* Default link color */
+  text-decoration: none; /* Removes underline */
+  padding: 0.5rem; /* Padding for larger click area */
+}
+
+.toggler-icon {
+  width: 25px; /* Width of the burger icon */
+  height: 2px; /* Height of the burger icon */
+  background-color: #333; /* Color of the burger icon */
+  transition: all 0.3s;
+  position: relative; /* Position relative to the button */
+  /* The following lines will create the top and bottom lines of the burger icon */
+}
+
+/* Pseudo-elements for the top and bottom lines of the burger icon */
+.toggler-icon::before,
+.toggler-icon::after {
+  content: '';
+  position: absolute;
+  left: 0; /* Align to the left */
+  width: 100%; /* Full width */
+  height: 2px; /* Same height as the middle line */
+  background-color: #333; /* Same color as the middle line */
+}
+
+.toggler-icon::before {
+  top: -8px; /* Position above the middle line */
+}
+
+.toggler-icon::after {
+  top: 8px; /* Position below the middle line */
+}
+
+a:hover,
+a.active {
+  color: #41817F; /* Color for hover and active state */
+  text-decoration: none; /* Ensure underline does not appear on hover */
+  font-weight: bold; /* Bold font for active state */
+}
+
+/* Styles for mobile screens */
+@media (max-width: 768px) {
   .navbar-toggler {
-    display: block; /* Show the burger menu */
+    display: flex; /* Show the toggle button on mobile screens */
+    flex-direction: column; /* Stack the lines */
+    justify-content: space-around; /* Space out the lines */
+    align-items: center; /* Center the lines horizontally */
+    width: 35px; /* Width of the burger menu button */
+    height: 35px; /* Height of the burger menu button */
+    background-color: #f8f9fa; /* Light background color for the button */
+    border: 1px solid #ccc; /* Border around the burger icon */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Padding inside the button */
+    cursor: pointer; /* Change mouse cursor on hover */
+    box-sizing: border-box; /* Include padding and border in the button's width and height */
+  }
+
+  .toggler-icon {
+    width: 25px; /* Width of the burger icon */
+    height: 2px; /* Height of the burger icon */
+    background-color: #333; /* Color of the burger icon */
+    transition: all 0.3s;
+    position: relative; /* Position relative to the button */
+
   }
 
   .navbar-collapse {
-    display: none; /* Hide navbar items initially */
+    display: none; /* Hide the menu by default on mobile screens */
+    flex-direction: column;
+    align-items: start;
+    width: 100%; /* Full width */
   }
 
-  .navbar-collapse.show {
-    display: block; /* Show navbar items when toggler is clicked */
+  .navbar-collapse.open {
+    display: flex; /* Show the menu when 'open' */
   }
 
-  .navbar-brand, .navbar-nav {
-    margin-right: 0; /* Reset margin for mobile */
+  .navigation-menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    width: 100%; /* Full width for the navigation menu */
+    flex-direction: column;
+  }
+
+  .navigation-menu li {
+    text-align: center; /* Center align text for menu items */
+    width: 100%; /* Full width list items */
+  }
+
+  .nav-link {
+    padding: 10px 15px; /* Add padding to the links for better touch targets */
+    border-bottom: 1px solid #ddd; /* Optional: add a separator between links */
+    display: block;
+    width: 100%; /* Full width links */
+    text-decoration: none; /* Removes underline */
   }
 }
 
-/* Ensure the container has the custom width */
-.container-fluid {
-  max-width: 1320px;
-  padding-left: 0;
-  padding-right: 0;
+/* Styles for tablet and desktop screens */
+@media (min-width: 769px) {
+  .navbar-toggler {
+    display: none; /* Hide the toggle button on tablet and desktop screens */
+  }
+
+  .navbar-collapse {
+    display: flex; /* Ensure the menu is visible */
+    justify-content: space-between; /* Space items out */
+  }
+
+  .navigation-menu {
+    flex-direction: row;
+  }
+
+  .navigation-menu li {
+    text-align: left;
+    width: auto; /* Auto width for list items */
+  }
+
+  .nav-link {
+    padding: 10px 15px;
+    display: inline;
+  }
 }
-
-/* Active state for nav links */
-.nav-link.active {
-  font-weight: bold;
-  color: #41817F; /* Your preferred color for the active state */
-}
-
-
-

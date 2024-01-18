@@ -27,7 +27,7 @@
 .back-button {
   display: inline-block;
   padding: 10px 20px;
-  margin-bottom: 20px;
+  margin: 20px;
   font-size: 16px;
   color: #ffffff;
   background-color: #007bff; /* Bootstrap primary color */
@@ -82,4 +82,23 @@
 
 .comment-button:hover {
   background-color: #45a049;
+}
+
+
+.like-section {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.like-button {
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.likes-count {
+  font-size: 1rem;
 }
