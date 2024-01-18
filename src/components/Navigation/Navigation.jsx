@@ -1,75 +1,94 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './Navigation.css';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (
-    <nav className=" navbar navbar-expand-lg navbar-light bg-light">
-      <div className=" container container-fluid">
-        <Link className="navbar-brand" to={'/'}>
-          Main
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          onClick={toggleMenu}
-          aria-controls="navbarSupportedContent"
-          aria-expanded={isMenuOpen ? 'true' : 'false'}
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
+    <nav className="custom-navbar">
+      <div className="container">
+        <button className="navbar-toggler" type="button" onClick={toggleMenu}>
+          <span className="toggler-icon"></span>
         </button>
-        <div
-          className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}
-          id="navbarSupportedContent"
-        >
-          <ul className="navigation-menu navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link
-                className="nav-link"
+        <div className={`navbar-collapse ${isMenuOpen ? 'open' : ''}`}>
+          <ul className="navigation-menu">
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+                to={'/'}
+              >
+                Main
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
                 to={'https://www.villa-manja.com/'}
                 target={'_blank'}
               >
                 Aparthotel Villa Manja
-              </Link>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
                 to={'https://ornamentico.shop/'}
                 target={'_blank'}
               >
                 Online Store
-              </Link>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
                 to={'https://cosyhome.studio/'}
                 target={'_blank'}
               >
                 Interior Design
-              </Link>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to={'/blog'}>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+                to={'/blog'}
+              >
                 Blog
-              </Link>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to={'/contacts'}>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+                to={'/contacts'}
+              >
                 Contacts
-              </Link>
+              </NavLink>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to={'/privacy-policy'}>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+                to={'/privacy-policy'}
+              >
                 Privacy Policy
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

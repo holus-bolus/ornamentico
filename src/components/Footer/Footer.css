@@ -1,0 +1,45 @@
+.contacts-container {
+  display: flex;
+  flex-direction: column; /* Stack vertically on small screens */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text */
+  padding: 1rem;
+  background-color: #f8f9fa; /* Adjust color as needed */
+}
+
+.contact-info ul {
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column; /* Stack list items vertically on small screens */
+  align-items: center; /* Center list items */
+  margin-bottom: 1rem;
+}
+
+.contact-info ul li {
+  margin: 0.5rem 0; /* Spacing between list items */
+}
+
+.footer-bottom p {
+  margin: 0.5rem 0; /* Spacing between paragraphs */
+}
+
+/* Styles for larger screens */
+@media (min-width: 768px) {
+  .contacts-container {
+    flex-direction: row; /* Align horizontally on larger screens */
+    justify-content: space-between; /* Space out the main container items */
+  }
+
+  .contact-info ul {
+    flex-direction: row; /* Align list items horizontally on larger screens */
+    flex-wrap: wrap; /* Wrap items if they don't fit in a single row */
+    justify-content: center; /* Center list items in their container */
+  }
+
+  .contact-info ul li {
+    margin: 0 1rem; /* Spacing between list items on larger screens */
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Footer.css';
 
 const Footer = () => {
   return (
@@ -72,38 +73,25 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      <div className="container">
-        <ul className="list-unstyled">
-          <li className="row mb-2">
-            <div className="col-12 col-md-auto">
-              <span className="contacts-item">
-                Contacts: Ornamentico Group |
-              </span>
-            </div>
-            <div className="col-12 col-md-auto">
-              <span className="contacts-item">www.ornamentico.com | </span>
-            </div>
-            <div className="col-12 col-md-auto">
-              <span className="contacts-item">
-                Koprivnik v Bohinju 5, 4264, Bohinjska Bistrica, Slovenia |
-              </span>
-            </div>
-            <div className="col-12 col-md-auto">
-              <span className="contacts-item">
-                <a
-                  className={'custom-NavLink'}
-                  href={'mailto:hello@ornamentico.com'}
-                >
-                  hello🐶ornamentico.com
-                </a>
-              </span>
-            </div>
-          </li>
-        </ul>
-        <div className="mt-3">
-          <p>&copy; 2016 Ornamentico Group</p>
-          <p>Koprivnik v Bohinju 5, Bohinjska Bistrica, 4264, Slovenia</p>
+      <div className={'contacts-container'}>
+        <div className="contact-info">
+          <ul>
+            <li className="contacts-item">Contacts: Ornamentico Group |</li>
+            <li className="contacts-item">www.ornamentico.com |</li>
+            <li className="contacts-item">
+              Koprivnik v Bohinju 5, 4264, Bohinjska Bistrica, Slovenia |
+            </li>
+            <li className="contacts-item">
+              <a className="custom-NavLink" href="mailto:hello@ornamentico.com">
+                hello🐶ornamentico.com
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
+      <div className="footer-bottom">
+        <p>&copy; 2016 Ornamentico Group</p>
+        <p>Koprivnik v Bohinju 5, Bohinjska Bistrica, 4264, Slovenia</p>
       </div>
     </footer>
   );
