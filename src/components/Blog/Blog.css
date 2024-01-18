@@ -80,3 +80,28 @@
   color: #888;
   margin-top: 20px;
 }
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.text-decoration-none:hover {
+  text-decoration: none;
+}
+.post-card {
+  max-width: 450px;
+  margin: auto;
+}
+
+.card-img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Removes bottom space/aligns bottom of image */
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.text-decoration-none:hover {
+  text-decoration: none;
+}

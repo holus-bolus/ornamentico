@@ -15,7 +15,6 @@ const Blog = () => {
 
   const navigate = useNavigate();
   const handleKeyPress = (event) => {
-    // Check if the key combination 'Ctrl+Shift+L' is pressed
     if (event.ctrlKey && event.shiftKey && event.code === 'KeyL') {
       setIsModalOpen(true);
     }
@@ -151,18 +150,43 @@ const Blog = () => {
       <div className="posts-container">
         {posts.length > 0 ? (
           posts.map((post) => (
-            <div className="post-card" key={post.id}>
-              <Link to={`/blog-post/${post.id}`}>
-                <h2 className="post-title">{post.title}</h2>
-                <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-                {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
-              </Link>
-              {user && (
-                <div>
-                  <button onClick={() => handleEdit(post)}>Edit</button>
-                  <button onClick={() => handleDelete(post.id)}>Delete</button>
-                </div>
-              )}
+            <div className="post-card mb-3" key={post.id}>
+              <div className="card-body">
+                <Link
+                  to={`/blog-post/${post.id}`}
+                  className="text-decoration-none"
+                >
+                  <h2 className="card-title h4">{post.title}</h2>
+                  <p className="card-text">
+                    <small className="text-muted">
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </small>
+                  </p>
+                  {post.imageUrl && (
+                    <img
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="card-img-top"
+                    />
+                  )}
+                </Link>
+                {user && (
+                  <div className="mt-2">
+                    <button
+                      className="btn btn-primary me-2"
+                      onClick={() => handleEdit(post)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(post.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ))
         ) : (

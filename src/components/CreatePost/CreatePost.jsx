@@ -1,49 +1,42 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './CreatePost.css';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePost = ({ onSave, onClose }) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [imageFile, setImageFile] = useState(null);
+  const [post, setPost] = useState({ title: '', content: '', imageUrl: '' });
   const quillRef = useRef(null);
+  const navigate = useNavigate();
 
-  const imageHandler = useCallback(async () => {
+  const imageHandler = useCallback(() => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.click();
-
     input.onchange = async () => {
       const file = input.files[0];
-      if (file) {
-        try {
-          const imageUrl = await handleImageUpload(file);
-          const editor = quillRef.current.getEditor();
-          const range = editor.getSelection(true);
-          editor.insertEmbed(range.index, 'image', imageUrl);
-        } catch (error) {
-          console.error('Image upload failed:', error);
-        }
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection();
+        editor.insertEmbed(range.index, 'image', data.imageUrl);
+      } else {
+        console.error('Upload failed');
       }
     };
   }, []);
 
-  const handleImageUpload = (file) => {
-    const formData = new FormData();
-    formData.append('image', file);
-    return fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to upload image.');
-        }
-        return response.json();
-      })
-      .then((data) => data.imageUrl);
+  const handleChange = (value, delta, source, editor) => {
+    setPost({ ...post, content: editor.getHTML() });
   };
 
   const modules = {
@@ -70,15 +63,13 @@ const CreatePost = ({ onSave, onClose }) => {
       return;
     }
 
-    const postPayload = { title, content, imageUrl: '' };
-
     fetch('/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(postPayload),
+      body: JSON.stringify(post),
     })
       .then((response) => {
         if (!response.ok) {
@@ -87,9 +78,7 @@ const CreatePost = ({ onSave, onClose }) => {
         return response.json();
       })
       .then((data) => {
-        setTitle('');
-        setContent('');
-        setImageFile(null);
+        setPost({ title: '', content: '', imageUrl: '' }); // Reset the post state
         onClose();
         onSave(data);
       })
@@ -98,8 +87,15 @@ const CreatePost = ({ onSave, onClose }) => {
       });
   };
 
+  const handleBackClick = () => {
+    navigate(-1); // This will take the user back to the previous page
+  };
+
   return (
-    <div className="container mt-4">
+    <div className="container my-4">
+      <button onClick={handleBackClick} className="btn btn-secondary mb-3">
+        Back
+      </button>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
@@ -109,28 +105,17 @@ const CreatePost = ({ onSave, onClose }) => {
             type="text"
             className="form-control"
             id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={post.title}
+            onChange={(e) => setPost({ ...post, title: e.target.value })}
           />
         </div>
         <div className="mb-3">
           <label className="form-label">Content</label>
           <ReactQuill
             ref={quillRef}
-            value={content}
-            onChange={setContent}
+            value={post.content}
+            onChange={handleChange}
             modules={modules}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="imageFile" className="form-label">
-            Image
-          </label>
-          <input
-            type="file"
-            className="form-control"
-            id="imageFile"
-            onChange={(e) => setImageFile(e.target.files[0])}
           />
         </div>
         <button type="submit" className="btn btn-primary">
