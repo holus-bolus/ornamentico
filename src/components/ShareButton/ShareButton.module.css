@@ -1,0 +1,26 @@
+.shareButtonContainer {
+    display: flex;
+    align-items: center;
+}
+
+.shareButton {
+    display: flex;
+    align-items: center;
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.shareButton:hover {
+    background-color: #2d4373;
+}
+
+.shareIcon {
+    width: 100px;
+    height: 100px;
+}
