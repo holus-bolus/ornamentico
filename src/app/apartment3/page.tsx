@@ -33,7 +33,7 @@ const Apartment3 = () => {
                     </p>
                     <button className={styles.apartment3__button}>Check availability</button>
                 </div>
-                <ApartmentCarousel currentIndex='0' />
+                <ApartmentCarousel currentIndex={0} />
             </div>
         </section>
     )
