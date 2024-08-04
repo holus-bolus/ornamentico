@@ -1,5 +1,7 @@
 @import "reset.css";
-
+body {
+    background-color: #f6f3e8;
+}
 .container {
    width: 1200px;
     margin: 0 auto;
