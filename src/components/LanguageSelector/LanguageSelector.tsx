@@ -1,71 +1,43 @@
-import React from 'react'
-import Select, { ActionMeta, OnChangeValue, StylesConfig } from 'react-select'
-import ReactCountryFlag from 'react-country-flag'
+import React, { useState } from 'react'
+import './LanguageSelector.css'
 
-const options = [
-    { value: 'en', label: <><ReactCountryFlag countryCode="US" svg style={{ marginRight: '8px' }} /> English</> },
-    { value: 'es', label: <><ReactCountryFlag countryCode="ES" svg style={{ marginRight: '8px' }} /> Spanish</> },
-    { value: 'fr', label: <><ReactCountryFlag countryCode="FR" svg style={{ marginRight: '8px' }} /> French</> },
+const languages = [
+    { code: 'en', name: 'English', icon: '/icons/united-kingdom.png' },
+    { code: 'es', name: 'Spanish', icon: '/icons/spain.png' },
+    { code: 'fr', name: 'French', icon: '/icons/france.png' }
 ]
 
-const customStyles: StylesConfig<{ value: string; label: JSX.Element }, boolean> = {
-    control: (provided) => ({
-        ...provided,
-        minHeight: '48px',
-        height: '48px',
-        display: 'flex',
-        alignItems: 'center',
-        '@media (max-width: 480px)': {
-            minHeight: '38px',
-            height: '38px',
-            minWidth: '120px',
-        },
-    }),
-    valueContainer: (provided) => ({
-        ...provided,
-        minHeight: '48px',
-        display: 'flex',
-        alignItems: 'center',
-        '@media (max-width: 480px)': {
-            minHeight: '38px',
-            height: '38px',
-        },
-    }),
-    singleValue: (provided) => ({
-        ...provided,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        minHeight: '48px',
-        '@media (max-width: 480px)': {
-            minHeight: '38px',
-            height: '38px',
-        },
-    }),
-    option: (provided) => ({
-        ...provided,
-        display: 'flex',
-        alignItems: 'center',
-        minHeight: '48px',
-        '@media (max-width: 480px)': {
-            minHeight: '38px',
-            height: '38px',
-        },
-    }),
+type LanguageSelectorProps = {
+    onChange: (language: { code: string; name: string, icon: string }) => void
 }
 
-type LanguageSelectorProps = {
-    onChange: (newValue: OnChangeValue<{ value: string; label: JSX.Element }, boolean>, actionMeta: ActionMeta<{ value: string; label: JSX.Element }>) => void;
-};
-
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onChange }) => {
+    const [selectedLanguage, setSelectedLanguage] = useState(languages[0])
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+    const handleLanguageChange = (language: { code: string; name: string, icon: string }) => {
+        setSelectedLanguage(language)
+        setIsDropdownOpen(false)
+        onChange(language)
+    }
+
     return (
-        <Select
-            options={options}
-            styles={customStyles}
-            onChange={onChange}
-            defaultValue={options[0]}
-        />
+        <div className='language-selector'>
+            <button className='selector-button' onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <img src={selectedLanguage.icon} alt={selectedLanguage.name} className="language-icon" />
+                <span className='full-name'>{selectedLanguage.name}</span>
+                <span className='short-code'>{selectedLanguage.code}</span>
+            </button>
+            <ul className={`language-dropdown ${isDropdownOpen ? 'open' : ''}`}>
+                {languages.map(language => (
+                    <li key={language.code} className="language__selector-item" onClick={() => handleLanguageChange(language)}>
+                        <img src={language.icon} alt={language.name} className="language-icon" />
+                        <span className='full-name'>{language.name}</span>
+                        <span className='short-code'>{language.code}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
     )
 }
 
