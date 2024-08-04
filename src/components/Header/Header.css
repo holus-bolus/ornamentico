@@ -101,7 +101,7 @@
     transform: translateY(0);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .header__logo img {
         width: 150px;
         height: auto;
@@ -112,17 +112,6 @@
         gap: 10px;
         align-items: center;
         padding-bottom: 10px;
-    }
-
-    .header__language-selector {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 50px;
-    }
-
-    .header__language-selector select {
-        width: 100%;
     }
 
     .burger-menu {
@@ -177,5 +166,15 @@
 
     .dropdown li a {
         width: 100%;
+    }
+}
+
+@media (max-width: 390px) {
+    .header__logo img {
+        width: 100px;
+    }
+
+    .header__language-selector {
+        width: auto;
     }
 }
