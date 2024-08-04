@@ -28,9 +28,6 @@ const Footer = () => {
                     </div>
                     <div className='footer__copy'>
                         <p className='footer__copy-desc'>Ornamentico Group d.o.o. </p>
-                        <p className='footer__copy-desc'> Apart Hotel Villa Manja </p>
-                        <a href='https://www.villa-manja.com' className='footer__copy-desc' target='_blank'
-                           rel='noopener noreferrer'> www.villa-manja.com </a>
                         <p className='footer__copy-desc'>Koprivnik v Bohinju 5, 4264 Bohinjska Bistrica, Slovenia</p>
                     </div>
                 </div>

@@ -24,7 +24,9 @@ const Header = () => {
             <div className='header__top-container'>
                 <div className='container header__logo-container'>
                     <div className='header__logo'>
-                        <Image src='/images/Ornamentico_logo.webp' alt='Ornamentico logo' width={375} height={45} />
+                       <Link href='/'>
+                           <Image src='/images/Ornamentico_logo.webp' alt='Ornamentico logo' width={375} height={45} />
+                       </Link>
                     </div>
                     <div className="header__language-selector">
                         <LanguageSelector onChange={handleLanguageChange} />
