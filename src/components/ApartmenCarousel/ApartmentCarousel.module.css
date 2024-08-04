@@ -1,0 +1,38 @@
+.apartment3 {
+    padding: 20px;
+}
+
+.apartment3_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.apartment3_textWrapper {
+    margin-bottom: 20px;
+}
+
+.apartment3_header {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.apartment3_button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #D4AD6A;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.apartment3_imageGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.apartment3_image {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}

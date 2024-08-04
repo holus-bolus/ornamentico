@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from './Apartment3.module.css'
 import '../globals.css'
+import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel";
 const Apartment3 = () => {
     return (
         <section className={styles.apartment3}>
@@ -32,6 +33,7 @@ const Apartment3 = () => {
                     </p>
                     <button className={styles.apartment3__button}>Check availability</button>
                 </div>
+                <ApartmentCarousel currentIndex='0' />
             </div>
         </section>
     )
