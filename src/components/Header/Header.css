@@ -170,8 +170,12 @@
 }
 
 @media (max-width: 390px) {
+    .header__logo-container {
+        display: flex;
+        gap: 5px;
+    }
     .header__logo img {
-        width: 100px;
+        width: 150px;
     }
 
     .header__language-selector {
