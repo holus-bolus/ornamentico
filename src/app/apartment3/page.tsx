@@ -4,6 +4,7 @@ import styles from './Apartment3.module.css'
 import '../globals.css'
 import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel";
 
+
 const images = [
     '/images/apartment3/1st.webp',
     '/images/apartment3/2nd.webp',
@@ -30,8 +31,6 @@ const images = [
     '/images/apartment3/24th.webp',
 ]
 
-
-
 const Apartment3 = () => {
     const [isCarouselOpen, setIsCarouselOpen] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -49,7 +48,7 @@ const Apartment3 = () => {
         <section className={styles.apartment3}>
             <div className={`container ${styles.apartment3__container}`}>
                 <div className={styles.apartment3__textWrapper}>
-                    <h1 className={styles.apartment3__header}>Apartment №3 <br/>
+                    <h1 className={styles.apartment3__header}>Apartment №3 <br />
                         "Birds & Flowers"
                     </h1>
                     <p className={styles.apartment3__text}>Family apartment</p>
@@ -60,20 +59,16 @@ const Apartment3 = () => {
                         <li>Master bedroom with queen-size bed with orthopedic mattress</li>
                         <li>Second bedroom with transformed bed (single, double and twin)</li>
                         <li>Additional foldable bed for a kid</li>
-                        <li>Fully equipped kitchen (cooking panel, oven, fridge, dish-washing machine, cattle, coffee
-                            machine, toaster, kitchenware)
-                        </li>
+                        <li>Fully equipped kitchen (cooking panel, oven, fridge, dish-washing machine, cattle, coffee machine, toaster, kitchenware)</li>
                         <li>Bathroom with shower cabin, heated towel dryer, and washing machine</li>
                         <li>Feeding chair for our smallest guests</li>
                     </ul>
-                    <p>
-                        In apartment, there are also iron, an ironing board, a fan, and other useful stuff for
-                        comfortable
+                    <p className={styles.apartment3__desc}>
+                        In apartment, there are also iron, an ironing board, a fan, and other useful stuff for comfortable
                         staying.
                     </p>
-                    <p>
-                        This apartment has an independent entrance from the street, it is located on the first floor,
-                        which
+                    <p className={styles.apartment3__desc}>
+                        This apartment has an independent entrance from the street, it is located on the first floor, which
                         you can reach by stairs. Free parking is available near our apartments hotel Villa Manja.
                     </p>
                     <button className={styles.apartment3__button}>Check availability</button>
@@ -90,7 +85,7 @@ const Apartment3 = () => {
                     ))}
                 </div>
             </div>
-            {isCarouselOpen && <ApartmentCarousel currentIndex={currentIndex} onClose={closeCarousel}/>}
+            {isCarouselOpen && <ApartmentCarousel currentIndex={currentIndex} onClose={closeCarousel} />}
         </section>
     )
 }

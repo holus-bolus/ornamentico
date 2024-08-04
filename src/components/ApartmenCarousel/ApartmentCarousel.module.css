@@ -1,35 +1,78 @@
-.apartment3 {
-    padding: 20px;
-}
-
-
-
-.apartment3_textWrapper {
-    margin-bottom: 20px;
-}
-
-.apartment3_header {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.apartment3_button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #D4AD6A;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.apartment3_imageGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.apartment3_image {
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.carouselContainer {
+    width: 80%;
+    max-width: 800px;
+    height: 80%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.imageContainer img {
+    max-height: 70vh;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
     cursor: pointer;
+    z-index: 1001;
+}
+
+.controlArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    z-index: 1001;
+    background: red;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.controlPrev {
+    left: -60px;
+}
+
+.controlNext {
+    right: -60px;
+}
+
+.carousel .carousel-slider {
+    height: 100%;
 }
