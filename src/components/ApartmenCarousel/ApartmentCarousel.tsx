@@ -29,7 +29,12 @@ const images = [
     { src: '/images/apartment3/24th.webp', title: 'Image 24 Title', description: 'Description for image 24' }
 ]
 
-const ApartmentCarousel = ({ currentIndex }: { currentIndex: number }) => {
+type ApartmentCarouselProps = {
+    currentIndex: number;
+    onClose: () => void;
+}
+
+const ApartmentCarousel: React.FC<ApartmentCarouselProps> = ({ currentIndex, onClose }) => {
     const [index, setIndex] = useState(currentIndex)
 
     const handleChange = (index: number) => {

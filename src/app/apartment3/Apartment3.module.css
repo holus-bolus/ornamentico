@@ -1,70 +1,39 @@
+.apartment3 {
+    padding: 20px;
+}
+
+.apartment3__container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px
+}
+
+.apartment3__textWrapper {
+    margin-bottom: 20px;
+}
 
 .apartment3__header {
-    font-size: 2rem;
-    color: #333;
+    font-size: 24px;
     margin-bottom: 10px;
 }
 
-.apartment3__text-wrapper {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #666;
-}
-
 .apartment3__button {
+    margin-top: 20px;
     padding: 10px 20px;
     background-color: #D4AD6A;
-    border: none;
     color: white;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.apartment3__button:hover {
-    background-color: #b38955;
-}
-
-
-
-
-.apartment3_images {
-    display: flex;
-    flex-wrap: wrap;
+.apartment3__imageGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
-.apartment3_imageTile {
-    width: calc(33.333% - 10px);
+.apartment3__image {
+    width: 200px;
+    height: 200px;
     cursor: pointer;
-}
-
-.apartment3_imageTile img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-.carouselModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.carouselCloseButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    z-index: 1001;
 }

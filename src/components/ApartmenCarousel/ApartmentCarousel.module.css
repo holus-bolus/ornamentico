@@ -2,10 +2,7 @@
     padding: 20px;
 }
 
-.apartment3_container {
-    display: flex;
-    flex-direction: column;
-}
+
 
 .apartment3_textWrapper {
     margin-bottom: 20px;
