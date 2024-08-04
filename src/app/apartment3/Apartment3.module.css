@@ -1,0 +1,25 @@
+
+.apartment3__header {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.apartment3__text-wrapper {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+.apartment3__button {
+    padding: 10px 20px;
+    background-color: #D4AD6A;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.apartment3__button:hover {
+    background-color: #b38955;
+}
