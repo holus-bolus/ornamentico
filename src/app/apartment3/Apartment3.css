@@ -51,7 +51,7 @@
     line-height: 1.4;
 }
 
-.apartment3__desc{
+.apartment3__desc {
     font-size: 16px;
     font-weight: 400;
     color: rgb(53, 67, 93);
@@ -80,4 +80,53 @@
     cursor: pointer;
 }
 
+.footer__social-apart {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
 
+.footer__social-icons-wrapper-apartment {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.footer__apartmentcopy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+.footer__icon-apartment {
+    height: 60px;
+}
+
+
+.footer__policy-page-link{
+    color: rgb(53, 67, 93);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 40px;
+}
+
+.footer__group {
+    font-weight: 600;
+}
+
+.footer__policy-address{
+    margin-top: 30px;
+    color: rgb(53, 67, 93);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 40px;
+}

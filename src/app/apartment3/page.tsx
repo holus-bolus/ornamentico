@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import styles from './Apartment3.module.css'
+import './Apartment3.css'
 import '../globals.css'
 import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel";
+import ShareButton from "@/components/ShareButton/ShareButton";
 
 
 const images = [
@@ -45,47 +46,93 @@ const Apartment3 = () => {
     }
 
     return (
-        <section className={styles.apartment3}>
-            <div className={`container ${styles.apartment3__container}`}>
-                <div className={styles.apartment3__textWrapper}>
-                    <h1 className={styles.apartment3__header}>Apartment №3 <br />
+        <section className={'apartment3'}>
+            <div className={`container apartment3__container`}>
+                <div className={'apartment3__textWrapper'}>
+                    <h1 className={'apartment3__header'}>Apartment №3 <br/>
                         "Birds & Flowers"
                     </h1>
-                    <p className={styles.apartment3__text}>Family apartment</p>
+                    <p className={'apartment3__text'}>Family apartment</p>
                     <p>
                         Big family apartment for four persons of 65 sq.m. Apartment includes:
                     </p>
-                    <ul className={styles.apartment3__list}>
+                    <ul className={'apartment3__list'}>
                         <li>Master bedroom with queen-size bed with orthopedic mattress</li>
                         <li>Second bedroom with transformed bed (single, double and twin)</li>
                         <li>Additional foldable bed for a kid</li>
-                        <li>Fully equipped kitchen (cooking panel, oven, fridge, dish-washing machine, cattle, coffee machine, toaster, kitchenware)</li>
+                        <li>Fully equipped kitchen (cooking panel, oven, fridge, dish-washing machine, cattle, coffee
+                            machine, toaster, kitchenware)
+                        </li>
                         <li>Bathroom with shower cabin, heated towel dryer, and washing machine</li>
                         <li>Feeding chair for our smallest guests</li>
                     </ul>
-                    <p className={styles.apartment3__desc}>
-                        In apartment, there are also iron, an ironing board, a fan, and other useful stuff for comfortable
+                    <p className={'apartment3__desc'}>
+                        In apartment, there are also iron, an ironing board, a fan, and other useful stuff for
+                        comfortable
                         staying.
                     </p>
-                    <p className={styles.apartment3__desc}>
-                        This apartment has an independent entrance from the street, it is located on the first floor, which
+                    <p className={'apartment3__desc'}>
+                        This apartment has an independent entrance from the street, it is located on the first floor,
+                        which
                         you can reach by stairs. Free parking is available near our apartments hotel Villa Manja.
                     </p>
-                    <button className={styles.apartment3__button}>Check availability</button>
+                    <button className={'apartment3__button'}>Check availability</button>
                 </div>
-                <div className={styles.apartment3__imageGrid}>
+                <div className={'apartment3__imageGrid'}>
                     {images.map((src, index) => (
                         <img
                             key={index}
                             src={src}
                             alt={`Image ${index + 1}`}
-                            className={styles.apartment3__image}
+                            className={'apartment3__image'}
                             onClick={() => openCarousel(index)}
                         />
                     ))}
                 </div>
             </div>
-            {isCarouselOpen && <ApartmentCarousel currentIndex={currentIndex} onClose={closeCarousel} />}
+            {isCarouselOpen && <ApartmentCarousel currentIndex={currentIndex} onClose={closeCarousel}/>}
+            <footer className='footer'>
+                <div className='container footer__container'>
+                    <div className='footer__top-container'>
+                        <div className='footer__social-apart'>
+                            <div className='footer__social-icons-wrapper-apartment'>
+                                <a href='https://www.facebook.com/villamanjaslovenia/' target='_blank'
+                                   rel='noopener noreferrer'
+                                   aria-label='Facebook'>
+                                    <img src='/icons/facebook.png' alt='A Facebook icon' className={'footer__icon-apartment'}/>
+                                </a>
+                                <a href='https://www.instagram.com/villamanjaslovenia/' target='_blank'
+                                   rel='noopener noreferrer'
+                                   aria-label='Instagram'>
+                                    <img src='/icons/instagram.png' alt='An Instagram icon'  className={'footer__icon-apartment'}/>
+                                </a>
+                                <a href='https://www.youtube.com/@villamanja_slovenia?sub_confirmation=1'
+                                   target='_blank'
+                                   rel='noopener noreferrer' aria-label='Twitter'>
+                                    <img src='/icons/youtube.png' alt='A Youtube icon'  className={'footer__icon-apartment'}/>
+                                </a>
+                            </div>
+                            <ShareButton/>
+                        </div>
+                        <div className='footer__apartmentcopy'>
+                            <p className='footer__copy-desc footer__group'>Ornamentico Group d.o.o. </p>
+                            <p className='footer__copy-desc'>
+                                Privacy policy
+                            </p>
+                        </div>
+                    </div>
+                    <div className='footer__apartmentpolicy'>
+                        <a href='#' className='footer__policy-page-link'>
+                            Koprivnik v Bohinju 5, 4264 Bohinjska Bistrica,
+                            Slovenia
+                        </a>
+                        <div className='footer__policy-address'>
+                            <p className='footer__policy-year'>©2017 Ornamentico Group, Apart Hotel Villa Manja</p>
+                        </div>
+
+                    </div>
+                </div>
+            </footer>
         </section>
     )
 }
