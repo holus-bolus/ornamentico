@@ -36,8 +36,6 @@ const Footer = () => {
                 </div>
                 <div className='footer__policy'>
                     <div className='footer__policy-address'>
-                        <a className='footer__policy-desc'>Koprivnik v Bohinju, 5, Bohinjska Bistrica, 4264,
-                            Slovenia</a>
                         <p className='footer__policy-year'>©2017 Ornamentico Group, Apart Hotel Villa Manja</p>
                     </div>
                     <a href='#' className='footer__policy-page-link'>
