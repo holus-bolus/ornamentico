@@ -70,7 +70,7 @@
     text-decoration: underline;
 }
 
-/* Media Queries */
+
 @media screen and (max-width: 1024px) {
     .footer__social {
         gap: 600px;
@@ -121,6 +121,7 @@
         padding: 0;
         box-shadow: none;
     }
+
 
     .footer__policy-page-link{
         order: -1;

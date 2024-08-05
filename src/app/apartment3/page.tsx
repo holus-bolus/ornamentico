@@ -98,17 +98,17 @@ const Apartment3 = () => {
                             <div className='footer__social-icons-wrapper-apartment'>
                                 <a href='https://www.facebook.com/villamanjaslovenia/' target='_blank'
                                    rel='noopener noreferrer'
-                                   aria-label='Facebook'>
+                                   aria-label='Facebook' className='apartment3__footer-social-icon'>
                                     <img src='/icons/facebook.png' alt='A Facebook icon' className={'footer__icon-apartment'}/>
                                 </a>
                                 <a href='https://www.instagram.com/villamanjaslovenia/' target='_blank'
                                    rel='noopener noreferrer'
-                                   aria-label='Instagram'>
+                                   aria-label='Instagram' className='apartment3__footer-social-icon'>
                                     <img src='/icons/instagram.png' alt='An Instagram icon'  className={'footer__icon-apartment'}/>
                                 </a>
                                 <a href='https://www.youtube.com/@villamanja_slovenia?sub_confirmation=1'
                                    target='_blank'
-                                   rel='noopener noreferrer' aria-label='Twitter'>
+                                   rel='noopener noreferrer' aria-label='Twitter' className='apartment3__footer-social-icon'>
                                     <img src='/icons/youtube.png' alt='A Youtube icon'  className={'footer__icon-apartment'}/>
                                 </a>
                             </div>

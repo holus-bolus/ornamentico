@@ -151,11 +151,16 @@
     }
 
     .dropdown {
+        display: flex;
+        flex-direction: column;
         position: relative;
-        width: 100%;
-        box-shadow: none;
         background-color: transparent;
+        box-shadow: none;
+        z-index: 1000;
         padding: 0;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
     }
 
     .dropdown li {
