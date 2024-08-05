@@ -96,47 +96,6 @@ const Apartment5 = () => {
                 </div>
             </div>
             {isCarouselOpen && <ApartmentCarousel currentIndex={currentIndex} onClose={closeCarousel} images={images} />}
-            <footer className='footer'>
-                <div className='container footer__container'>
-                    <div className='footer__top-container'>
-                        <div className='footer__social-apart'>
-                            <div className='footer__social-icons-wrapper-apartment'>
-                                <a href='https://www.facebook.com/villamanjaslovenia/' target='_blank'
-                                   rel='noopener noreferrer'
-                                   aria-label='Facebook' className='apartment3__footer-social-icon'>
-                                    <img src='/icons/facebook.png' alt='A Facebook icon' className={'footer__icon-apartment'}/>
-                                </a>
-                                <a href='https://www.instagram.com/villamanjaslovenia/' target='_blank'
-                                   rel='noopener noreferrer'
-                                   aria-label='Instagram' className='apartment3__footer-social-icon'>
-                                    <img src='/icons/instagram.png' alt='An Instagram icon'  className={'footer__icon-apartment'}/>
-                                </a>
-                                <a href='https://www.youtube.com/@villamanja_slovenia?sub_confirmation=1'
-                                   target='_blank'
-                                   rel='noopener noreferrer' aria-label='Twitter' className='apartment3__footer-social-icon'>
-                                    <img src='/icons/youtube.png' alt='A Youtube icon'  className={'footer__icon-apartment'}/>
-                                </a>
-                            </div>
-                            <ShareButton/>
-                        </div>
-                        <div className='footer__apartmentcopy'>
-                            <p className='footer__copy-desc footer__group'>Ornamentico Group d.o.o. </p>
-                            <p className='footer__copy-desc'>
-                                Privacy policy
-                            </p>
-                        </div>
-                    </div>
-                    <div className='footer__apartmentpolicy'>
-                        <a href='#' className='footer__policy-page-link'>
-                            Koprivnik v Bohinju 5, 4264 Bohinjska Bistrica,
-                            Slovenia
-                        </a>
-                        <div className='footer__policy-address'>
-                            <p className='footer__policy-year'>©2017 Ornamentico Group, Apart Hotel Villa Manja</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </section>
     )
 }
