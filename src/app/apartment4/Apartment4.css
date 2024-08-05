@@ -74,12 +74,6 @@
     margin-bottom: 40px;
 }
 
-.apartment3__image {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-}
-
 .responsive-iframe {
     position: relative;
     padding-bottom: 56.25%;
