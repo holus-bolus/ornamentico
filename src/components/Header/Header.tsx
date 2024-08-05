@@ -46,7 +46,7 @@ const Header = () => {
                             <a className='header__link'>Apart Hotel Villa Manja</a>
                             <ul className={`dropdown ${isDropdownOpen ? 'open' : ''}`}>
                                 <li><Link href='/apartment3'>Apartment 3 Birds & Flowers</Link></li>
-                                <li><Link href='#'>Apartment 4 Sunny Nest</Link></li>
+                                <li><Link href='/apartment4'>Apartment 4 Sunny Nest</Link></li>
                                 <li><Link href='#'>Apartment 5 Tulips and Mint</Link></li>
                                 <li><Link href='#'>Apartment 6 Lavender and Chamomile</Link></li>
                             </ul>

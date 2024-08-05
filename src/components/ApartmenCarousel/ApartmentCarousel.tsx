@@ -1,81 +1,67 @@
-import React, { useState } from 'react'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import React, { useEffect, useRef } from 'react'
+import Glide from '@glidejs/glide'
+import '@glidejs/glide/dist/css/glide.core.min.css'
+import '@glidejs/glide/dist/css/glide.theme.min.css'
 import styles from './ApartmentCarousel.module.css'
 
-const images = [
-    { src: '/images/apartment3/1st.webp', title: 'Entrance to apartment 3' },
-    { src: '/images/apartment3/2nd.webp', title: 'Hallway' },
-    { src: '/images/apartment3/3rd.webp', title: 'Master Bedroom' },
-    { src: '/images/apartment3/4th.webp', title: 'Second Bedroom' },
-    { src: '/images/apartment3/5th.webp', title: 'Living Room' },
-    { src: '/images/apartment3/6th.webp', title: 'Kitchen' },
-    { src: '/images/apartment3/7th.webp', title: 'Dining Area' },
-    { src: '/images/apartment3/8th.webp', title: 'Bathroom' },
-    { src: '/images/apartment3/10th.webp', title: 'Exterior View' },
-    { src: '/images/apartment3/11th.webp', title: 'Balcony' },
-    { src: '/images/apartment3/12th.webp', title: 'Garden' },
-    { src: '/images/apartment3/13th.webp', title: 'Play Area' },
-    { src: '/images/apartment3/14th.webp', title: 'Nearby Attractions' },
-    { src: '/images/apartment3/15th.webp', title: 'Parking Area' },
-    { src: '/images/apartment3/16th.webp', title: 'Master Bedroom Closeup' },
-    { src: '/images/apartment3/17th.webp', title: 'Kitchen Appliances' },
-    { src: '/images/apartment3/18th.webp', title: 'Dining Area Decor' },
-    { src: '/images/apartment3/19th.webp', title: 'Living Room Decor' },
-    { src: '/images/apartment3/20th.webp', title: 'Bathroom Amenities' },
-    { src: '/images/apartment3/21st.webp', title: 'Apartment Exterior' },
-    { src: '/images/apartment3/22nd.webp', title: 'Street View' },
-    { src: '/images/apartment3/23rd.webp', title: 'Nearby Nature' },
-    { src: '/images/apartment3/24th.webp', title: 'Local Attractions' },
-]
+type Image = {
+    src: string
+    title: string
+}
 
 type ApartmentCarouselProps = {
     currentIndex: number
     onClose: () => void
+    images: Image[]
 }
 
-const ApartmentCarousel: React.FC<ApartmentCarouselProps> = ({ currentIndex, onClose }) => {
-    const [selectedItem, setSelectedItem] = useState(currentIndex)
+const ApartmentCarousel: React.FC<ApartmentCarouselProps> = ({ currentIndex, onClose, images }) => {
+    const glideRef = useRef(null)
 
-    const handleChange = (index: number) => {
-        setSelectedItem(index)
-    }
+    useEffect(() => {
+        const glide = new Glide(glideRef.current, {
+            startAt: currentIndex,
+            type: 'carousel',
+            perView: 1,
+            focusAt: 'center',
+            gap: 0,
+            autoplay: 3000
+        })
+
+        glide.mount()
+
+        return () => {
+            glide.destroy()
+        }
+    }, [currentIndex])
 
     return (
         <div className={styles.backdrop} onClick={onClose}>
             <div className={styles.carouselContainer} onClick={(e) => e.stopPropagation()}>
                 <button className={styles.closeButton} onClick={onClose}>X</button>
-                <Carousel
-                    selectedItem={selectedItem}
-                    showArrows={true}
-                    autoPlay={true}
-                    infiniteLoop={true}
-                    showThumbs={false}
-                    showStatus={false}
-                    interval={3000}
-                    onChange={handleChange}
-                    renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                        hasPrev && (
-                            <button type="button" className={`${styles.controlArrow} ${styles.controlPrev}`} onClick={onClickHandler} title={label}>
-                                &lt;
-                            </button>
-                        )
-                    }
-                    renderArrowNext={(onClickHandler, hasNext, label) =>
-                        hasNext && (
-                            <button type="button" className={`${styles.controlArrow} ${styles.controlNext}`} onClick={onClickHandler} title={label}>
-                                &gt;
-                            </button>
-                        )
-                    }
-                >
-                    {images.map((image, index) => (
-                        <div key={index} className={styles.imageContainer}>
-                            <img src={image.src} alt={`Slide ${index + 1}`} />
-                            <p className={styles.legend}>{image.title}</p>
-                        </div>
-                    ))}
-                </Carousel>
+                <div className="glide" ref={glideRef}>
+                    <div className="glide__track" data-glide-el="track">
+                        <ul className="glide__slides">
+                            {images.map((image, index) => (
+                                <li className={`glide__slide ${styles.imageContainer}`} key={index}>
+                                    <img src={image.src} alt={`Slide ${index + 1}`} />
+                                    <div className={styles.legendContainer}>
+                                        <div className={styles.legend}>{image.title}</div>
+                                        <div className="glide__bullets" data-glide-el="controls[nav]">
+                                            {images.map((_, index) => (
+                                                <button key={index} className="glide__bullet" data-glide-dir={`=${index}`}></button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="glide__arrows" data-glide-el="controls">
+                        <button className="glide__arrow glide__arrow--left" data-glide-dir="<">‹</button>
+                        <button className="glide__arrow glide__arrow--right" data-glide-dir=">">›</button>
+                    </div>
+                </div>
             </div>
         </div>
     )
