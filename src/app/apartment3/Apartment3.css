@@ -114,7 +114,13 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
-    margin-bottom: 40px;
+}
+
+.footer__apartmentpolicy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 
 .footer__group {
@@ -122,13 +128,11 @@
 }
 
 .footer__policy-address{
-    margin-top: 30px;
     color: rgb(53, 67, 93);
     text-decoration: none;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.4;
-    margin-bottom: 40px;
 }
 
 
