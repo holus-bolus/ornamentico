@@ -2,8 +2,9 @@
 import React, { useState } from 'react'
 import './Apartment3.css'
 import '../globals.css'
-import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel";
+
 import ShareButton from "@/components/ShareButton/ShareButton";
+import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel";
 
 const images = [
     { src: '/images/apartment3/1st.webp', title: 'Entrance to apartment 3' },
@@ -52,7 +53,7 @@ const Apartment3 = () => {
                         "Birds & Flowers"
                     </h1>
                     <p className={'apartment3__text'}>Family apartment</p>
-                    <p>
+                    <p className='apartment3__family-apart'>
                         Big family apartment for four persons of 65 sq.m. Apartment includes:
                     </p>
                     <ul className={'apartment3__list'}>

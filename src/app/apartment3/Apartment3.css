@@ -161,17 +161,38 @@
     .apartment3__imageGrid {
         display: flex;
         flex-direction: column;
+        width: 90%;
     }
+    .apartment3__family-apart{
+        width: 90%;
+    }
+
     .apartment3__image {
         width: 100%;
         height: 400px;
     }
+
+    .apartment3__desc{
+        width: 90%;
+    }
+    .footer__apartmentcopy {
+        width: 90%;
+    }
+
+    .footer__apartmentpolicy {
+        width: 90%;
+    }
+
     .footer__social-apart {
         flex-direction: column;
         align-items: center;
         gap: 20px;
     }
+
     .apartment3__footer-social-icon {
         width: 30px;
+    }
+    .responsive-iframe{
+        width: 90%;
     }
 }
