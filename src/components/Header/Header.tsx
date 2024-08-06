@@ -48,7 +48,7 @@ const Header = () => {
                                 <li><Link href='/apartment3'>Apartment 3 Birds & Flowers</Link></li>
                                 <li><Link href='/apartment4'>Apartment 4 Sunny Nest</Link></li>
                                 <li><Link href='/apartment5'>Apartment 5 Tulips and Mint</Link></li>
-                                <li><Link href='#'>Apartment 6 Lavender and Chamomile</Link></li>
+                                <li><Link href='/apartment6'>Apartment 6 Lavender and Chamomile</Link></li>
                             </ul>
                         </li>
                         <li className='header__item'><Link href='#' className='header__link'>Booking</Link></li>

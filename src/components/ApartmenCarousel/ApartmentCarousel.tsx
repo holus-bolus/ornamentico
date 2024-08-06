@@ -1,11 +1,16 @@
 import React from 'react'
-import ImageGallery from 'react-image-gallery'
+import ImageGallery, { ReactImageGalleryItem as BaseReactImageGalleryItem } from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import styles from './ApartmentCarousel.module.css'
+
+interface ReactImageGalleryItem extends BaseReactImageGalleryItem {
+    title?: string
+}
 
 type Image = {
     src: string
     title: string
+    description?: string
 }
 
 type ApartmentCarouselProps = {
@@ -18,12 +23,25 @@ const ApartmentCarousel: React.FC<ApartmentCarouselProps> = ({ currentIndex, onC
     const imageGalleryItems = images.map(image => ({
         original: image.src,
         thumbnail: image.src,
-        description: image.title,
+        title: image.title,
+        description: image.description,
+        originalClass: 'custom-slide',
+        thumbnailClass: 'custom-thumbnail'
     }))
 
     const handleImageClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation()
     }
+
+    const renderItem = (item: ReactImageGalleryItem) => (
+        <div className={styles.imageGalleryItem}>
+            <img src={item.original} alt={item.title as string} />
+            <div className={styles.caption}>
+                <h3 className={styles.title}>{item.title}</h3>
+                <p className={styles.description}>{item.description}</p>
+            </div>
+        </div>
+    )
 
     return (
         <div className={styles.backdrop} onClick={onClose}>
@@ -35,6 +53,7 @@ const ApartmentCarousel: React.FC<ApartmentCarouselProps> = ({ currentIndex, onC
                     showThumbnails={false}
                     showFullscreenButton={false}
                     showPlayButton={false}
+                    renderItem={renderItem}
                 />
             </div>
         </div>

@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import './Apartment5.css'
 import '../globals.css'
-import ShareButton from "@/components/ShareButton/ShareButton"
 import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel"
 
 const images = [
