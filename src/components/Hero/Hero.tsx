@@ -12,7 +12,6 @@ const Hero = () => {
                 <p className='hero__description'>
                     Apartments in Bohinj area, Slovenia
                 </p>
-                <ImageCarousel />
                 <p className='hero__text'>
                     Our cozy Apart Hotel Villa Manja, located in the Triglav National Park,
                     is waiting for you in the most beautiful area of Slovenia - Bohinj, located in the Julian Alps.
