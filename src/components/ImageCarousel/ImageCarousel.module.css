@@ -28,7 +28,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh; /* Adjust this to change the height of the carousel */
+    height: 60vh;
 }
 
 .imageContainer img {
@@ -74,7 +74,7 @@
     z-index: 10;
 }
 
-/* Media query to hide dots on mobile screens */
+
 @media (max-width: 767px) {
     .carousel .control-dots {
         display: none;
