@@ -2,22 +2,21 @@
 import React, { useState } from 'react'
 import './Apartment4.css'
 import '../globals.css'
-import ApartmentCarousel from "@/components/ApartmenCarousel/ApartmentCarousel"
-import ShareButton from "@/components/ShareButton/ShareButton"
+import ImageCarousel from "@/components/ImageCarousel/ImageCarousel"
 
 const images = [
-    { src: '/images/apartment4/1st.webp', title: 'Entrance to apartment 4' },
-    { src: '/images/apartment4/2nd.webp', title: 'Hallway' },
-    { src: '/images/apartment4/3rd.webp', title: 'Master Bedroom' },
-    { src: '/images/apartment4/4th.webp', title: 'Second Bedroom' },
-    { src: '/images/apartment4/5th.webp', title: 'Living Room' },
-    { src: '/images/apartment4/6th.webp', title: 'Kitchen' },
-    { src: '/images/apartment4/7th.webp', title: 'Dining Area' },
-    { src: '/images/apartment4/8th.webp', title: 'Bathroom' },
-    { src: '/images/apartment4/10th.webp', title: 'Exterior View' },
-    { src: '/images/apartment4/11th.webp', title: 'Balcony' },
-    { src: '/images/apartment4/12th.webp', title: 'Garden' },
-    { src: '/images/apartment4/13th.webp', title: 'Play Area' },
+    { src: '/images/apartment4/1st.webp', title: 'Entrance to apartment 4', description: 'Entrance to apartment 4' },
+    { src: '/images/apartment4/2nd.webp', title: 'Hallway', description: 'Hallway' },
+    { src: '/images/apartment4/3rd.webp', title: 'Master Bedroom', description: 'Master Bedroom' },
+    { src: '/images/apartment4/4th.webp', title: 'Second Bedroom', description: 'Second Bedroom' },
+    { src: '/images/apartment4/5th.webp', title: 'Living Room', description: 'Living Room' },
+    { src: '/images/apartment4/6th.webp', title: 'Kitchen', description: 'Kitchen' },
+    { src: '/images/apartment4/7th.webp', title: 'Dining Area', description: 'Dining Area' },
+    { src: '/images/apartment4/8th.webp', title: 'Bathroom', description: 'Bathroom' },
+    { src: '/images/apartment4/10th.webp', title: 'Exterior View', description: 'Exterior View' },
+    { src: '/images/apartment4/11th.webp', title: 'Balcony', description: 'Balcony' },
+    { src: '/images/apartment4/12th.webp', title: 'Garden', description: 'Garden' },
+    { src: '/images/apartment4/13th.webp', title: 'Play Area', description: 'Play Area' },
 ]
 
 const Apartment4 = () => {
@@ -47,7 +46,7 @@ const Apartment4 = () => {
                     <ul className={'apartment3__list'}>
                         <li>Bedroom with one big bed 160×200 cm with orthopedic mattress</li>
                         <li>Living room</li>
-                        <li>Fully equipped kitchen (cooking panel, oven, fridge, dish-washing machine, cattle, coffee machine, toaster, kitchenware)</li>
+                        <li>Fully equipped kitchen (cooking panel, oven, fridge, dish-washing machine, kettle, coffee machine, toaster, kitchenware)</li>
                         <li>Bathroom with shower cabin</li>
                         <li>Separate toilet</li>
                     </ul>
@@ -65,7 +64,7 @@ const Apartment4 = () => {
                             <img
                                 key={index}
                                 src={src.src}
-                                alt={`Image ${index + 1}`}
+                                alt={src.title}
                                 className={'apartment3__image'}
                                 onClick={() => openCarousel(index)}
                             />
@@ -82,7 +81,7 @@ const Apartment4 = () => {
                     </div>
                 </div>
             </div>
-            {isCarouselOpen && <ApartmentCarousel currentIndex={currentIndex} onClose={closeCarousel} images={images} />}
+            {isCarouselOpen && <ImageCarousel currentIndex={currentIndex} onClose={closeCarousel} images={images} />}
         </section>
     )
 }
