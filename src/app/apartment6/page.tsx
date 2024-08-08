@@ -77,7 +77,7 @@ const Apartment6 = () => {
                     </div>
                     <div className='responsive-iframe'>
                         <iframe
-                            src='https://www.youtube.com/embed/ZPieLBFKvg0'
+                            src='https://www.youtube.com/embed/lrlZ7Zhx8d4?autoplay=0&mute=0&controls=1&loop=0&origin=https%3A%2F%2Fwww.villa-manja.com&playsinline=1&enablejsapi=1&widgetid=19'
                             title='YouTube video player'
                             frameBorder='0'
                             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'

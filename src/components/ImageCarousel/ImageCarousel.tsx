@@ -25,7 +25,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, currentIndex, onC
     return (
         <div className={styles.backdrop}>
             <div className={styles.carouselContainer}>
-                <button className={styles.closeButton} onClick={onClose}>Close</button>
+                <button className={styles.closeButton} onClick={onClose}>&#10006;</button>
                 <Carousel
                     selectedItem={selectedIndex}
                     onChange={handleChange}

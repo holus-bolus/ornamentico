@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import LanguageSelector from '@/components/LanguageSelector/LanguageSelector'
 import './Header.css'
@@ -9,7 +9,8 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
-    const handleLanguageChange = (language: { code: string; name: string }) => {}
+    const handleLanguageChange = (language: { code: string; name: string }) => {
+    }
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
@@ -24,12 +25,12 @@ const Header = () => {
             <div className='header__top-container'>
                 <div className='container header__logo-container'>
                     <div className='header__logo'>
-                       <Link href='/'>
-                           <Image src='/images/Ornamentico_logo.webp' alt='Ornamentico logo' width={375} height={45} />
-                       </Link>
+                        <Link href='/'>
+                            <Image src='/images/Ornamentico_logo.webp' alt='Ornamentico logo' width={375} height={45}/>
+                        </Link>
                     </div>
-                    <div className="header__language-selector">
-                        <LanguageSelector onChange={handleLanguageChange} />
+                    <div className='header__language-selector'>
+                        <LanguageSelector onChange={handleLanguageChange}/>
                     </div>
                     <div className={`burger-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
                         <div className='bar'></div>
@@ -52,7 +53,8 @@ const Header = () => {
                             </ul>
                         </li>
                         <li className='header__item'><Link href='#' className='header__link'>Booking</Link></li>
-                        <li className='header__item'><Link href='#' className='header__link'>What to see nearby</Link></li>
+                        <li className='header__item'><Link href='/see-nearby' className='header__link'>What to see
+                            nearby</Link></li>
                         <li className='header__item'><Link href='#' className='header__link'>Contacts</Link></li>
                     </ul>
                 </div>
