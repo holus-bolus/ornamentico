@@ -2,6 +2,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .seeNearby__text {
@@ -9,29 +10,36 @@
     font-weight: 500;
     line-height: 1.4;
     margin-bottom: 3rem;
+    text-align: center;
 }
 
 .seeNearby__points {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 50px;
 }
 
-
 .seeNearby__point {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 5rem;
+    gap: 3rem;
+    margin-bottom: 2rem;
 }
 
 .seeNearby__pointText {
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
 }
 
 .seeNearby__pointImage {
-    width: 600px;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
 }
 
 .seeNearby__pointDescription {
@@ -39,4 +47,22 @@
     font-weight: 500;
     line-height: 1.4;
     color: #4f4f4f;
+    text-align: justify;
+}
+
+@media (min-width: 768px) {
+    .seeNearby__point {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .seeNearby__pointText {
+        text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    .seeNearby__point {
+        gap: 2rem;
+    }
 }
