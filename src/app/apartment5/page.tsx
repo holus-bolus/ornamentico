@@ -17,6 +17,8 @@ const images = [
     { src: '/images/apartment5/11th.webp', title: 'Balcony', description: 'Balcony' },
     { src: '/images/apartment5/12th.webp', title: 'Garden', description: 'Garden' },
     { src: '/images/apartment5/13th.webp', title: 'Play Area', description: 'Play Area' },
+    { src: '/images/apartment5/14th.webp', title: 'Garden', description: 'Garden' },
+    { src: '/images/apartment5/15th.webp', title: 'Play Area', description: 'Play Area' },
 ]
 
 const Apartment5 = () => {
