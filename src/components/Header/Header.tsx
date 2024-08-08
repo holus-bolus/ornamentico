@@ -55,7 +55,7 @@ const Header = () => {
                         <li className='header__item'><Link href='#' className='header__link'>Booking</Link></li>
                         <li className='header__item'><Link href='/see-nearby' className='header__link'>What to see
                             nearby</Link></li>
-                        <li className='header__item'><Link href='#' className='header__link'>Contacts</Link></li>
+                        <li className='header__item'><Link href='/contacts' className='header__link'>Contacts</Link></li>
                     </ul>
                 </div>
             </nav>
